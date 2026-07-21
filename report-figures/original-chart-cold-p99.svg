@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420">
+  <rect width="100%" height="100%" fill="#fafafa"/>
+  <text x="40" y="40" font-size="20" font-weight="bold">Cold-start P99: RAM tmpfs vs Disk</text>
+  <line x1="60" y1="340" x2="760" y2="340" stroke="#ccc"/>
+  <rect x="80" y="291.8" width="120" height="48.2" fill="#2ecc71" rx="6"/><text x="140.0" y="281.7852326895153" text-anchor="middle" font-size="14">18.0s</text><text x="140.0" y="368" text-anchor="middle" font-size="13">Optimized
+(RAM)</text><rect x="260" y="113.9" width="120" height="226.1" fill="#e74c3c" rx="6"/><text x="320.0" y="103.91304347826085" text-anchor="middle" font-size="14">84.4s</text><text x="320.0" y="368" text-anchor="middle" font-size="13">Baseline
+(Disk)</text>
+</svg>

@@ -1,0 +1,36 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: yolo-inference
+  namespace: default
+  labels:
+    deployment-mode: optimized
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/target: "1"
+        autoscaling.knative.dev/min-scale: "0"
+        autoscaling.knative.dev/max-scale: "5"
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+        - image: dev.local/yolo-serverless-api:v4
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8080
+          env:
+            - name: MODEL_PATH
+              value: /mnt/shared-weights/yolov8l-world.pt
+            - name: DEPLOYMENT_MODE
+              value: optimized
+          volumeMounts:
+            - name: model-volume
+              mountPath: /mnt/shared-weights
+      volumes:
+        - name: model-volume
+          hostPath:
+            path: /mnt/shared-weights
+            type: Directory

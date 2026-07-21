@@ -1,0 +1,238 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-datasources
+  namespace: monitoring
+data:
+  datasource.yaml: |
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        uid: prometheus
+        url: http://prometheus:9090
+        isDefault: true
+        editable: false
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards-config
+  namespace: monitoring
+data:
+  dashboards.yaml: |
+    apiVersion: 1
+    providers:
+      - name: default
+        orgId: 1
+        folder: YOLO Serverless
+        type: file
+        disableDeletion: false
+        updateIntervalSeconds: 10
+        options:
+          path: /var/lib/grafana/dashboards
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-yolo
+  namespace: monitoring
+data:
+  yolo-coldstart.json: |
+    {
+      "title": "YOLO Cold-start: RAM vs Disk",
+      "uid": "yolo-coldstart",
+      "timezone": "browser",
+      "schemaVersion": 39,
+      "version": 2,
+      "refresh": "5s",
+      "tags": ["yolo", "knative", "cold-start"],
+      "templating": { "list": [] },
+      "annotations": { "list": [] },
+      "panels": [
+        {
+          "id": 1,
+          "type": "timeseries",
+          "title": "Optimized (RAM) — Request Latency P99 (s)",
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "fieldConfig": {
+            "defaults": { "unit": "s", "custom": { "drawStyle": "line", "lineWidth": 2 } },
+            "overrides": []
+          },
+          "targets": [
+            {
+              "refId": "A",
+              "expr": "histogram_quantile(0.99, sum(rate(yolo_inference_request_duration_seconds_bucket{mode=\"optimized\"}[1m])) by (le))",
+              "legendFormat": "optimized P99"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "type": "timeseries",
+          "title": "Baseline (Disk) — Request Latency P99 (s)",
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "fieldConfig": {
+            "defaults": { "unit": "s", "custom": { "drawStyle": "line", "lineWidth": 2 } },
+            "overrides": []
+          },
+          "targets": [
+            {
+              "refId": "A",
+              "expr": "histogram_quantile(0.99, sum(rate(yolo_inference_request_duration_seconds_bucket{mode=\"baseline\"}[1m])) by (le))",
+              "legendFormat": "baseline P99"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "type": "stat",
+          "title": "Model Load Time — Optimized (RAM)",
+          "gridPos": {"h": 6, "w": 6, "x": 0, "y": 8},
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "fieldConfig": {
+            "defaults": { "unit": "s", "thresholds": { "mode": "absolute", "steps": [{"color": "green", "value": null}] } },
+            "overrides": []
+          },
+          "targets": [
+            {
+              "refId": "A",
+              "expr": "yolo_model_load_seconds{mode=\"optimized\"}",
+              "legendFormat": "optimized"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "type": "stat",
+          "title": "Model Load Time — Baseline (Disk)",
+          "gridPos": {"h": 6, "w": 6, "x": 6, "y": 8},
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "fieldConfig": {
+            "defaults": { "unit": "s", "thresholds": { "mode": "absolute", "steps": [{"color": "red", "value": null}] } },
+            "overrides": []
+          },
+          "targets": [
+            {
+              "refId": "A",
+              "expr": "yolo_model_load_seconds{mode=\"baseline\"}",
+              "legendFormat": "baseline"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "type": "timeseries",
+          "title": "P99 Latency — Both Modes Overlay",
+          "gridPos": {"h": 6, "w": 12, "x": 12, "y": 8},
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "fieldConfig": {
+            "defaults": { "unit": "s" },
+            "overrides": []
+          },
+          "targets": [
+            {
+              "refId": "A",
+              "expr": "histogram_quantile(0.99, sum(rate(yolo_inference_request_duration_seconds_bucket[1m])) by (le, mode))",
+              "legendFormat": "{{mode}} P99"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "type": "timeseries",
+          "title": "Requests/sec by mode",
+          "gridPos": {"h": 8, "w": 12, "x": 0, "y": 14},
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "targets": [
+            {
+              "refId": "A",
+              "expr": "sum(rate(yolo_inference_requests_total[1m])) by (mode, status)",
+              "legendFormat": "{{mode}} {{status}}"
+            }
+          ]
+        },
+        {
+          "id": 7,
+          "type": "timeseries",
+          "title": "Avg Request Duration (s)",
+          "gridPos": {"h": 8, "w": 12, "x": 12, "y": 14},
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "fieldConfig": {
+            "defaults": { "unit": "s" },
+            "overrides": []
+          },
+          "targets": [
+            {
+              "refId": "A",
+              "expr": "sum(rate(yolo_inference_request_duration_seconds_sum[1m])) by (mode) / sum(rate(yolo_inference_request_duration_seconds_count[1m])) by (mode)",
+              "legendFormat": "{{mode}} avg"
+            }
+          ]
+        }
+      ]
+    }
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      labels:
+        app: grafana
+    spec:
+      containers:
+        - name: grafana
+          image: grafana/grafana:11.2.0
+          ports:
+            - containerPort: 3000
+          env:
+            - name: GF_SECURITY_ADMIN_USER
+              value: admin
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              value: admin
+            - name: GF_USERS_ALLOW_SIGN_UP
+              value: "false"
+            - name: GF_AUTH_ANONYMOUS_ENABLED
+              value: "true"
+            - name: GF_AUTH_ANONYMOUS_ORG_ROLE
+              value: Viewer
+          volumeMounts:
+            - name: datasources
+              mountPath: /etc/grafana/provisioning/datasources
+            - name: dashboards-config
+              mountPath: /etc/grafana/provisioning/dashboards
+            - name: dashboards
+              mountPath: /var/lib/grafana/dashboards
+      volumes:
+        - name: datasources
+          configMap:
+            name: grafana-datasources
+        - name: dashboards-config
+          configMap:
+            name: grafana-dashboards-config
+        - name: dashboards
+          configMap:
+            name: grafana-dashboard-yolo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  selector:
+    app: grafana
+  ports:
+    - port: 3000
+      targetPort: 3000

@@ -1,0 +1,7 @@
+results/*.json
+results/*.txt
+!results/.gitkeep
+results/charts/
+results/runs/
+
+.venv-figs/
