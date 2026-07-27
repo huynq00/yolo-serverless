@@ -1,8 +1,8 @@
 {
   "p99_source": "prometheus",
   "model_load_source": "prometheus",
-  "optimized_model_load_s": 1.3805201053619385,
+  "optimized_model_load_s": 0.43638062477111816,
   "baseline_model_load_s": 0.0,
-  "optimized_p99_s": 9.936230207413297,
-  "baseline_p99_s": 84.42193094000001
+  "optimized_p99_s": 9.813599229575885,
+  "baseline_p99_s": 7.209353
 }

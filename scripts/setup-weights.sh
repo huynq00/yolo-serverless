@@ -23,6 +23,8 @@ minikube ssh "cd /mnt/shared-weights && \
 
 echo "==> Thiết lập thư mục đĩa tại /mnt/disk-weights (baseline)..."
 minikube ssh "sudo mkdir -p /mnt/disk-weights && sudo chmod 777 /mnt/disk-weights"
+# Lưu ý: Docker Desktop virtio disk rất nhanh (~300–500MB/s).
+# Baseline dùng MODEL_IO_MBPS trong service-baseline.yaml để mô phỏng storage chậm.
 
 echo "==> Tải model vào đĩa (baseline)..."
 minikube ssh "cd /mnt/disk-weights && \

@@ -5,3 +5,9 @@ results/charts/
 results/runs/
 
 .venv-figs/
+
+.venv-pptx/
+_pptx_media_tmp/
+
+__pycache__/
+*.pyc

@@ -17,7 +17,7 @@ spec:
         prometheus.io/path: "/metrics"
     spec:
       containers:
-        - image: dev.local/yolo-serverless-api:v4
+        - image: dev.local/yolo-serverless-api:v5
           imagePullPolicy: Never
           ports:
             - containerPort: 8080

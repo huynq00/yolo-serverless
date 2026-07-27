@@ -1,0 +1,532 @@
+
+>>> YOLO Serverless — Full Acceptance Suite
+REPEATS=3 COLD_VUS=1 BURST_VUS=15 TIMEOUT=180s
+
+>>> Lặp compare cold-start 3 lần (mỗi lần scale-to-zero riêng)...
+
+>>> [Compare] Optimized (RAM) → results/runs/run-1
+==> Đang ép yolo-inference scale về 0...
+pod "yolo-inference-00007-deployment-65ccd4cc7-dmwxv" deleted from default namespace
+pod "yolo-inference-00007-deployment-65ccd4cc7-fj4q9" deleted from default namespace
+pod "yolo-inference-00007-deployment-65ccd4cc7-lf9hq" deleted from default namespace
+pod "yolo-inference-00007-deployment-65ccd4cc7-w6nvn" deleted from default namespace
+pod "yolo-inference-00007-deployment-65ccd4cc7-wtgvt" deleted from default namespace
+==> Chờ không còn pod (timeout 180s)...
+    ... còn 8 pod, đợi thêm 5s
+    ... còn 10 pod, đợi thêm 5s
+    ... còn 10 pod, đợi thêm 5s
+    ... còn 10 pod, đợi thêm 5s
+    ... còn 10 pod, đợi thêm 5s
+    ... còn 10 pod, đợi thêm 5s
+    ... còn 10 pod, đợi thêm 5s
+    ... còn 8 pod, đợi thêm 5s
+    ... còn 5 pod, đợi thêm 5s
+    ... còn 5 pod, đợi thêm 5s
+    ... còn 5 pod, đợi thêm 5s
+    ... còn 5 pod, đợi thêm 5s
+    ... còn 5 pod, đợi thêm 5s
+    ... còn 5 pod, đợi thêm 5s
+    ... còn 5 pod, đợi thêm 5s
+    ... còn 5 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+==> Scale-to-zero hoàn tất. Sẵn sàng chạy cold-start benchmark.
+time="2026-07-22T20:25:05+07:00" level=warning msg="open() was used and is currently relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/', but in the future it will be aligned with how `require` and imports work and will be relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/lib/common.js'. This means that in the future open will open relative path relative to the module/file it is written in. You can future proof this by using `import.meta.resolve()` to get relative paths to the file it is written in the current k6 version."
+[32m     ✓ status is 200[0m
+
+     checks[2m.........................:[0m [36m100.00%[0m [36;2m✓ 1[0m        [36;2m✗ 0[0m  
+     cold_start_latency_ms[2m..........:[0m avg=[36m7.81s[0m  min=[36m7.81s[0m  med=[36m7.81s[0m  max=[36m7.81s[0m  p(90)=[36m7.81s[0m  p(95)=[36m7.81s[0m  p(99)=[36m7.81s[0m  count=[36m1[0m
+     data_received[2m..................:[0m [36m215 B[0m   [36;2m28 B/s[0m
+     data_sent[2m......................:[0m [36m531 kB[0m  [36;2m68 kB/s[0m
+     http_req_blocked[2m...............:[0m avg=[36m4.12ms[0m min=[36m4.12ms[0m med=[36m4.12ms[0m max=[36m4.12ms[0m p(90)=[36m4.12ms[0m p(95)=[36m4.12ms[0m p(99)=[36m4.12ms[0m count=[36m1[0m
+     http_req_connecting[2m............:[0m avg=[36m233µs[0m  min=[36m233µs[0m  med=[36m233µs[0m  max=[36m233µs[0m  p(90)=[36m233µs[0m  p(95)=[36m233µs[0m  p(99)=[36m233µs[0m  count=[36m1[0m
+     http_req_duration[2m..............:[0m avg=[36m7.81s[0m  min=[36m7.81s[0m  med=[36m7.81s[0m  max=[36m7.81s[0m  p(90)=[36m7.81s[0m  p(95)=[36m7.81s[0m  p(99)=[36m7.81s[0m  count=[36m1[0m
+       { expected_response:true }[2m...:[0m avg=[36m7.81s[0m  min=[36m7.81s[0m  med=[36m7.81s[0m  max=[36m7.81s[0m  p(90)=[36m7.81s[0m  p(95)=[36m7.81s[0m  p(99)=[36m7.81s[0m  count=[36m1[0m
+       { phase:cold_start }[2m.........:[0m avg=[36m7.81s[0m  min=[36m7.81s[0m  med=[36m7.81s[0m  max=[36m7.81s[0m  p(90)=[36m7.81s[0m  p(95)=[36m7.81s[0m  p(99)=[36m7.81s[0m  count=[36m1[0m
+     http_req_failed[2m................:[0m [36m0.00%[0m   [36;2m✓ 0[0m        [36;2m✗ 1[0m  
+     http_req_receiving[2m.............:[0m avg=[36m341µs[0m  min=[36m341µs[0m  med=[36m341µs[0m  max=[36m341µs[0m  p(90)=[36m341µs[0m  p(95)=[36m341µs[0m  p(99)=[36m341µs[0m  count=[36m1[0m
+     http_req_sending[2m...............:[0m avg=[36m763µs[0m  min=[36m763µs[0m  med=[36m763µs[0m  max=[36m763µs[0m  p(90)=[36m763µs[0m  p(95)=[36m763µs[0m  p(99)=[36m763µs[0m  count=[36m1[0m
+     http_req_tls_handshaking[2m.......:[0m avg=[36m0s[0m     min=[36m0s[0m     med=[36m0s[0m     max=[36m0s[0m     p(90)=[36m0s[0m     p(95)=[36m0s[0m     p(99)=[36m0s[0m     count=[36m1[0m
+     http_req_waiting[2m...............:[0m avg=[36m7.81s[0m  min=[36m7.81s[0m  med=[36m7.81s[0m  max=[36m7.81s[0m  p(90)=[36m7.81s[0m  p(95)=[36m7.81s[0m  p(99)=[36m7.81s[0m  count=[36m1[0m
+     http_reqs[2m......................:[0m [36m1[0m       [36;2m0.127802/s[0m
+     iteration_duration[2m.............:[0m avg=[36m7.82s[0m  min=[36m7.82s[0m  med=[36m7.82s[0m  max=[36m7.82s[0m  p(90)=[36m7.82s[0m  p(95)=[36m7.82s[0m  p(99)=[36m7.82s[0m  count=[36m1[0m
+     iterations[2m.....................:[0m [36m1[0m       [36;2m0.127802/s[0m
+     vus[2m............................:[0m [36m1[0m       [36;2mmin=1[0m      [36;2mmax=1[0m
+     vus_max[2m........................:[0m [36m1[0m       [36;2mmin=1[0m      [36;2mmax=1[0mOK: optimized results/runs/run-1: fail_rate=0.00% p99=7.82s
+
+>>> [Compare] Baseline (Disk) → results/runs/run-1
+==> Đang ép yolo-inference-baseline scale về 0...
+No resources found
+==> Chờ không còn pod (timeout 180s)...
+==> Scale-to-zero hoàn tất. Sẵn sàng chạy cold-start benchmark.
+time="2026-07-22T20:25:17+07:00" level=warning msg="open() was used and is currently relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/', but in the future it will be aligned with how `require` and imports work and will be relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/lib/common.js'. This means that in the future open will open relative path relative to the module/file it is written in. You can future proof this by using `import.meta.resolve()` to get relative paths to the file it is written in the current k6 version."
+[32m     ✓ status is 200[0m
+
+     checks[2m.........................:[0m [36m100.00%[0m [36;2m✓ 1[0m       [36;2m✗ 0[0m  
+     cold_start_latency_ms[2m..........:[0m avg=[36m7.57s[0m  min=[36m7.57s[0m  med=[36m7.57s[0m  max=[36m7.57s[0m  p(90)=[36m7.57s[0m  p(95)=[36m7.57s[0m  p(99)=[36m7.57s[0m  count=[36m1[0m
+     data_received[2m..................:[0m [36m214 B[0m   [36;2m28 B/s[0m
+     data_sent[2m......................:[0m [36m531 kB[0m  [36;2m70 kB/s[0m
+     http_req_blocked[2m...............:[0m avg=[36m2.19ms[0m min=[36m2.19ms[0m med=[36m2.19ms[0m max=[36m2.19ms[0m p(90)=[36m2.19ms[0m p(95)=[36m2.19ms[0m p(99)=[36m2.19ms[0m count=[36m1[0m
+     http_req_connecting[2m............:[0m avg=[36m230µs[0m  min=[36m230µs[0m  med=[36m230µs[0m  max=[36m230µs[0m  p(90)=[36m230µs[0m  p(95)=[36m230µs[0m  p(99)=[36m230µs[0m  count=[36m1[0m
+     http_req_duration[2m..............:[0m avg=[36m7.57s[0m  min=[36m7.57s[0m  med=[36m7.57s[0m  max=[36m7.57s[0m  p(90)=[36m7.57s[0m  p(95)=[36m7.57s[0m  p(99)=[36m7.57s[0m  count=[36m1[0m
+       { expected_response:true }[2m...:[0m avg=[36m7.57s[0m  min=[36m7.57s[0m  med=[36m7.57s[0m  max=[36m7.57s[0m  p(90)=[36m7.57s[0m  p(95)=[36m7.57s[0m  p(99)=[36m7.57s[0m  count=[36m1[0m
+       { phase:cold_start }[2m.........:[0m avg=[36m7.57s[0m  min=[36m7.57s[0m  med=[36m7.57s[0m  max=[36m7.57s[0m  p(90)=[36m7.57s[0m  p(95)=[36m7.57s[0m  p(99)=[36m7.57s[0m  count=[36m1[0m
+     http_req_failed[2m................:[0m [36m0.00%[0m   [36;2m✓ 0[0m       [36;2m✗ 1[0m  
+     http_req_receiving[2m.............:[0m avg=[36m586µs[0m  min=[36m586µs[0m  med=[36m586µs[0m  max=[36m586µs[0m  p(90)=[36m586µs[0m  p(95)=[36m586µs[0m  p(99)=[36m586µs[0m  count=[36m1[0m
+     http_req_sending[2m...............:[0m avg=[36m415µs[0m  min=[36m415µs[0m  med=[36m415µs[0m  max=[36m415µs[0m  p(90)=[36m415µs[0m  p(95)=[36m415µs[0m  p(99)=[36m415µs[0m  count=[36m1[0m
+     http_req_tls_handshaking[2m.......:[0m avg=[36m0s[0m     min=[36m0s[0m     med=[36m0s[0m     max=[36m0s[0m     p(90)=[36m0s[0m     p(95)=[36m0s[0m     p(99)=[36m0s[0m     count=[36m1[0m
+     http_req_waiting[2m...............:[0m avg=[36m7.57s[0m  min=[36m7.57s[0m  med=[36m7.57s[0m  max=[36m7.57s[0m  p(90)=[36m7.57s[0m  p(95)=[36m7.57s[0m  p(99)=[36m7.57s[0m  count=[36m1[0m
+     http_reqs[2m......................:[0m [36m1[0m       [36;2m0.13202/s[0m
+     iteration_duration[2m.............:[0m avg=[36m7.58s[0m  min=[36m7.58s[0m  med=[36m7.58s[0m  max=[36m7.58s[0m  p(90)=[36m7.58s[0m  p(95)=[36m7.58s[0m  p(99)=[36m7.58s[0m  count=[36m1[0m
+     iterations[2m.....................:[0m [36m1[0m       [36;2m0.13202/s[0m
+     vus[2m............................:[0m [36m1[0m       [36;2mmin=1[0m     [36;2mmax=1[0m
+     vus_max[2m........................:[0m [36m1[0m       [36;2mmin=1[0m     [36;2mmax=1[0mOK: baseline results/runs/run-1: fail_rate=0.00% p99=7.57s
+  ✓ Hoàn thành lần 1/3
+
+>>> [Compare] Optimized (RAM) → results/runs/run-2
+==> Đang ép yolo-inference scale về 0...
+pod "yolo-inference-00007-deployment-65ccd4cc7-crr2j" deleted from default namespace
+pod "yolo-inference-00007-deployment-65ccd4cc7-ddwdj" deleted from default namespace
+==> Chờ không còn pod (timeout 180s)...
+    ... còn 4 pod, đợi thêm 5s
+    ... còn 4 pod, đợi thêm 5s
+    ... còn 4 pod, đợi thêm 5s
+    ... còn 4 pod, đợi thêm 5s
+    ... còn 4 pod, đợi thêm 5s
+    ... còn 4 pod, đợi thêm 5s
+    ... còn 4 pod, đợi thêm 5s
+    ... còn 2 pod, đợi thêm 5s
+    ... còn 2 pod, đợi thêm 5s
+    ... còn 2 pod, đợi thêm 5s
+    ... còn 2 pod, đợi thêm 5s
+    ... còn 2 pod, đợi thêm 5s
+    ... còn 2 pod, đợi thêm 5s
+    ... còn 2 pod, đợi thêm 5s
+    ... còn 2 pod, đợi thêm 5s
+    ... còn 2 pod, đợi thêm 5s
+    ... còn 2 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+==> Scale-to-zero hoàn tất. Sẵn sàng chạy cold-start benchmark.
+time="2026-07-22T20:27:15+07:00" level=warning msg="open() was used and is currently relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/', but in the future it will be aligned with how `require` and imports work and will be relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/lib/common.js'. This means that in the future open will open relative path relative to the module/file it is written in. You can future proof this by using `import.meta.resolve()` to get relative paths to the file it is written in the current k6 version."
+[32m     ✓ status is 200[0m
+
+     checks[2m.........................:[0m [36m100.00%[0m [36;2m✓ 1[0m       [36;2m✗ 0[0m  
+     cold_start_latency_ms[2m..........:[0m avg=[36m6.6s[0m    min=[36m6.6s[0m    med=[36m6.6s[0m    max=[36m6.6s[0m    p(90)=[36m6.6s[0m    p(95)=[36m6.6s[0m    p(99)=[36m6.6s[0m    count=[36m1[0m
+     data_received[2m..................:[0m [36m215 B[0m   [36;2m32 B/s[0m
+     data_sent[2m......................:[0m [36m531 kB[0m  [36;2m80 kB/s[0m
+     http_req_blocked[2m...............:[0m avg=[36m50.29ms[0m min=[36m50.29ms[0m med=[36m50.29ms[0m max=[36m50.29ms[0m p(90)=[36m50.29ms[0m p(95)=[36m50.29ms[0m p(99)=[36m50.29ms[0m count=[36m1[0m
+     http_req_connecting[2m............:[0m avg=[36m345µs[0m   min=[36m345µs[0m   med=[36m345µs[0m   max=[36m345µs[0m   p(90)=[36m345µs[0m   p(95)=[36m345µs[0m   p(99)=[36m345µs[0m   count=[36m1[0m
+     http_req_duration[2m..............:[0m avg=[36m6.6s[0m    min=[36m6.6s[0m    med=[36m6.6s[0m    max=[36m6.6s[0m    p(90)=[36m6.6s[0m    p(95)=[36m6.6s[0m    p(99)=[36m6.6s[0m    count=[36m1[0m
+       { expected_response:true }[2m...:[0m avg=[36m6.6s[0m    min=[36m6.6s[0m    med=[36m6.6s[0m    max=[36m6.6s[0m    p(90)=[36m6.6s[0m    p(95)=[36m6.6s[0m    p(99)=[36m6.6s[0m    count=[36m1[0m
+       { phase:cold_start }[2m.........:[0m avg=[36m6.6s[0m    min=[36m6.6s[0m    med=[36m6.6s[0m    max=[36m6.6s[0m    p(90)=[36m6.6s[0m    p(95)=[36m6.6s[0m    p(99)=[36m6.6s[0m    count=[36m1[0m
+     http_req_failed[2m................:[0m [36m0.00%[0m   [36;2m✓ 0[0m       [36;2m✗ 1[0m  
+     http_req_receiving[2m.............:[0m avg=[36m1.42ms[0m  min=[36m1.42ms[0m  med=[36m1.42ms[0m  max=[36m1.42ms[0m  p(90)=[36m1.42ms[0m  p(95)=[36m1.42ms[0m  p(99)=[36m1.42ms[0m  count=[36m1[0m
+     http_req_sending[2m...............:[0m avg=[36m656µs[0m   min=[36m656µs[0m   med=[36m656µs[0m   max=[36m656µs[0m   p(90)=[36m656µs[0m   p(95)=[36m656µs[0m   p(99)=[36m656µs[0m   count=[36m1[0m
+     http_req_tls_handshaking[2m.......:[0m avg=[36m0s[0m      min=[36m0s[0m      med=[36m0s[0m      max=[36m0s[0m      p(90)=[36m0s[0m      p(95)=[36m0s[0m      p(99)=[36m0s[0m      count=[36m1[0m
+     http_req_waiting[2m...............:[0m avg=[36m6.6s[0m    min=[36m6.6s[0m    med=[36m6.6s[0m    max=[36m6.6s[0m    p(90)=[36m6.6s[0m    p(95)=[36m6.6s[0m    p(99)=[36m6.6s[0m    count=[36m1[0m
+     http_reqs[2m......................:[0m [36m1[0m       [36;2m0.15015/s[0m
+     iteration_duration[2m.............:[0m avg=[36m6.65s[0m   min=[36m6.65s[0m   med=[36m6.65s[0m   max=[36m6.65s[0m   p(90)=[36m6.65s[0m   p(95)=[36m6.65s[0m   p(99)=[36m6.65s[0m   count=[36m1[0m
+     iterations[2m.....................:[0m [36m1[0m       [36;2m0.15015/s[0m
+     vus[2m............................:[0m [36m1[0m       [36;2mmin=1[0m     [36;2mmax=1[0m
+     vus_max[2m........................:[0m [36m1[0m       [36;2mmin=1[0m     [36;2mmax=1[0mOK: optimized results/runs/run-2: fail_rate=0.00% p99=6.60s
+
+>>> [Compare] Baseline (Disk) → results/runs/run-2
+==> Đang ép yolo-inference-baseline scale về 0...
+No resources found
+==> Chờ không còn pod (timeout 180s)...
+==> Scale-to-zero hoàn tất. Sẵn sàng chạy cold-start benchmark.
+time="2026-07-22T20:27:26+07:00" level=warning msg="open() was used and is currently relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/', but in the future it will be aligned with how `require` and imports work and will be relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/lib/common.js'. This means that in the future open will open relative path relative to the module/file it is written in. You can future proof this by using `import.meta.resolve()` to get relative paths to the file it is written in the current k6 version."
+[32m     ✓ status is 200[0m
+
+     checks[2m.........................:[0m [36m100.00%[0m [36;2m✓ 1[0m        [36;2m✗ 0[0m  
+     cold_start_latency_ms[2m..........:[0m avg=[36m7.36s[0m    min=[36m7.36s[0m    med=[36m7.36s[0m    max=[36m7.36s[0m    p(90)=[36m7.36s[0m    p(95)=[36m7.36s[0m    p(99)=[36m7.36s[0m    count=[36m1[0m
+     data_received[2m..................:[0m [36m214 B[0m   [36;2m27 B/s[0m
+     data_sent[2m......................:[0m [36m531 kB[0m  [36;2m66 kB/s[0m
+     http_req_blocked[2m...............:[0m avg=[36m652.84ms[0m min=[36m652.84ms[0m med=[36m652.84ms[0m max=[36m652.84ms[0m p(90)=[36m652.84ms[0m p(95)=[36m652.84ms[0m p(99)=[36m652.84ms[0m count=[36m1[0m
+     http_req_connecting[2m............:[0m avg=[36m252µs[0m    min=[36m252µs[0m    med=[36m252µs[0m    max=[36m252µs[0m    p(90)=[36m252µs[0m    p(95)=[36m252µs[0m    p(99)=[36m252µs[0m    count=[36m1[0m
+     http_req_duration[2m..............:[0m avg=[36m7.36s[0m    min=[36m7.36s[0m    med=[36m7.36s[0m    max=[36m7.36s[0m    p(90)=[36m7.36s[0m    p(95)=[36m7.36s[0m    p(99)=[36m7.36s[0m    count=[36m1[0m
+       { expected_response:true }[2m...:[0m avg=[36m7.36s[0m    min=[36m7.36s[0m    med=[36m7.36s[0m    max=[36m7.36s[0m    p(90)=[36m7.36s[0m    p(95)=[36m7.36s[0m    p(99)=[36m7.36s[0m    count=[36m1[0m
+       { phase:cold_start }[2m.........:[0m avg=[36m7.36s[0m    min=[36m7.36s[0m    med=[36m7.36s[0m    max=[36m7.36s[0m    p(90)=[36m7.36s[0m    p(95)=[36m7.36s[0m    p(99)=[36m7.36s[0m    count=[36m1[0m
+     http_req_failed[2m................:[0m [36m0.00%[0m   [36;2m✓ 0[0m        [36;2m✗ 1[0m  
+     http_req_receiving[2m.............:[0m avg=[36m699µs[0m    min=[36m699µs[0m    med=[36m699µs[0m    max=[36m699µs[0m    p(90)=[36m699µs[0m    p(95)=[36m699µs[0m    p(99)=[36m699µs[0m    count=[36m1[0m
+     http_req_sending[2m...............:[0m avg=[36m581µs[0m    min=[36m581µs[0m    med=[36m581µs[0m    max=[36m581µs[0m    p(90)=[36m581µs[0m    p(95)=[36m581µs[0m    p(99)=[36m581µs[0m    count=[36m1[0m
+     http_req_tls_handshaking[2m.......:[0m avg=[36m0s[0m       min=[36m0s[0m       med=[36m0s[0m       max=[36m0s[0m       p(90)=[36m0s[0m       p(95)=[36m0s[0m       p(99)=[36m0s[0m       count=[36m1[0m
+     http_req_waiting[2m...............:[0m avg=[36m7.36s[0m    min=[36m7.36s[0m    med=[36m7.36s[0m    max=[36m7.36s[0m    p(90)=[36m7.36s[0m    p(95)=[36m7.36s[0m    p(99)=[36m7.36s[0m    count=[36m1[0m
+     http_reqs[2m......................:[0m [36m1[0m       [36;2m0.124674/s[0m
+     iteration_duration[2m.............:[0m avg=[36m8.02s[0m    min=[36m8.02s[0m    med=[36m8.02s[0m    max=[36m8.02s[0m    p(90)=[36m8.02s[0m    p(95)=[36m8.02s[0m    p(99)=[36m8.02s[0m    count=[36m1[0m
+     iterations[2m.....................:[0m [36m1[0m       [36;2m0.124674/s[0m
+     vus[2m............................:[0m [36m1[0m       [36;2mmin=1[0m      [36;2mmax=1[0m
+     vus_max[2m........................:[0m [36m1[0m       [36;2mmin=1[0m      [36;2mmax=1[0mOK: baseline results/runs/run-2: fail_rate=0.00% p99=7.37s
+  ✓ Hoàn thành lần 2/3
+
+>>> [Compare] Optimized (RAM) → results/runs/run-3
+==> Đang ép yolo-inference scale về 0...
+pod "yolo-inference-00007-deployment-65ccd4cc7-dcpfg" deleted from default namespace
+pod "yolo-inference-00007-deployment-65ccd4cc7-xnvl5" deleted from default namespace
+==> Chờ không còn pod (timeout 180s)...
+    ... còn 4 pod, đợi thêm 5s
+    ... còn 4 pod, đợi thêm 5s
+    ... còn 4 pod, đợi thêm 5s
+    ... còn 4 pod, đợi thêm 5s
+    ... còn 4 pod, đợi thêm 5s
+    ... còn 4 pod, đợi thêm 5s
+    ... còn 4 pod, đợi thêm 5s
+    ... còn 2 pod, đợi thêm 5s
+    ... còn 2 pod, đợi thêm 5s
+    ... còn 2 pod, đợi thêm 5s
+    ... còn 2 pod, đợi thêm 5s
+    ... còn 2 pod, đợi thêm 5s
+    ... còn 2 pod, đợi thêm 5s
+    ... còn 2 pod, đợi thêm 5s
+    ... còn 2 pod, đợi thêm 5s
+    ... còn 2 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+==> Scale-to-zero hoàn tất. Sẵn sàng chạy cold-start benchmark.
+time="2026-07-22T20:29:25+07:00" level=warning msg="open() was used and is currently relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/', but in the future it will be aligned with how `require` and imports work and will be relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/lib/common.js'. This means that in the future open will open relative path relative to the module/file it is written in. You can future proof this by using `import.meta.resolve()` to get relative paths to the file it is written in the current k6 version."
+[32m     ✓ status is 200[0m
+
+     checks[2m.........................:[0m [36m100.00%[0m [36;2m✓ 1[0m        [36;2m✗ 0[0m  
+     cold_start_latency_ms[2m..........:[0m avg=[36m7.79s[0m  min=[36m7.79s[0m  med=[36m7.79s[0m  max=[36m7.79s[0m  p(90)=[36m7.79s[0m  p(95)=[36m7.79s[0m  p(99)=[36m7.79s[0m  count=[36m1[0m
+     data_received[2m..................:[0m [36m215 B[0m   [36;2m28 B/s[0m
+     data_sent[2m......................:[0m [36m531 kB[0m  [36;2m68 kB/s[0m
+     http_req_blocked[2m...............:[0m avg=[36m2.15ms[0m min=[36m2.15ms[0m med=[36m2.15ms[0m max=[36m2.15ms[0m p(90)=[36m2.15ms[0m p(95)=[36m2.15ms[0m p(99)=[36m2.15ms[0m count=[36m1[0m
+     http_req_connecting[2m............:[0m avg=[36m215µs[0m  min=[36m215µs[0m  med=[36m215µs[0m  max=[36m215µs[0m  p(90)=[36m215µs[0m  p(95)=[36m215µs[0m  p(99)=[36m215µs[0m  count=[36m1[0m
+     http_req_duration[2m..............:[0m avg=[36m7.79s[0m  min=[36m7.79s[0m  med=[36m7.79s[0m  max=[36m7.79s[0m  p(90)=[36m7.79s[0m  p(95)=[36m7.79s[0m  p(99)=[36m7.79s[0m  count=[36m1[0m
+       { expected_response:true }[2m...:[0m avg=[36m7.79s[0m  min=[36m7.79s[0m  med=[36m7.79s[0m  max=[36m7.79s[0m  p(90)=[36m7.79s[0m  p(95)=[36m7.79s[0m  p(99)=[36m7.79s[0m  count=[36m1[0m
+       { phase:cold_start }[2m.........:[0m avg=[36m7.79s[0m  min=[36m7.79s[0m  med=[36m7.79s[0m  max=[36m7.79s[0m  p(90)=[36m7.79s[0m  p(95)=[36m7.79s[0m  p(99)=[36m7.79s[0m  count=[36m1[0m
+     http_req_failed[2m................:[0m [36m0.00%[0m   [36;2m✓ 0[0m        [36;2m✗ 1[0m  
+     http_req_receiving[2m.............:[0m avg=[36m420µs[0m  min=[36m420µs[0m  med=[36m420µs[0m  max=[36m420µs[0m  p(90)=[36m420µs[0m  p(95)=[36m420µs[0m  p(99)=[36m420µs[0m  count=[36m1[0m
+     http_req_sending[2m...............:[0m avg=[36m439µs[0m  min=[36m439µs[0m  med=[36m439µs[0m  max=[36m439µs[0m  p(90)=[36m439µs[0m  p(95)=[36m439µs[0m  p(99)=[36m439µs[0m  count=[36m1[0m
+     http_req_tls_handshaking[2m.......:[0m avg=[36m0s[0m     min=[36m0s[0m     med=[36m0s[0m     max=[36m0s[0m     p(90)=[36m0s[0m     p(95)=[36m0s[0m     p(99)=[36m0s[0m     count=[36m1[0m
+     http_req_waiting[2m...............:[0m avg=[36m7.79s[0m  min=[36m7.79s[0m  med=[36m7.79s[0m  max=[36m7.79s[0m  p(90)=[36m7.79s[0m  p(95)=[36m7.79s[0m  p(99)=[36m7.79s[0m  count=[36m1[0m
+     http_reqs[2m......................:[0m [36m1[0m       [36;2m0.128184/s[0m
+     iteration_duration[2m.............:[0m avg=[36m7.8s[0m   min=[36m7.8s[0m   med=[36m7.8s[0m   max=[36m7.8s[0m   p(90)=[36m7.8s[0m   p(95)=[36m7.8s[0m   p(99)=[36m7.8s[0m   count=[36m1[0m
+     iterations[2m.....................:[0m [36m1[0m       [36;2m0.128184/s[0m
+     vus[2m............................:[0m [36m1[0m       [36;2mmin=1[0m      [36;2mmax=1[0m
+     vus_max[2m........................:[0m [36m1[0m       [36;2mmin=1[0m      [36;2mmax=1[0mOK: optimized results/runs/run-3: fail_rate=0.00% p99=7.80s
+
+>>> [Compare] Baseline (Disk) → results/runs/run-3
+==> Đang ép yolo-inference-baseline scale về 0...
+No resources found
+==> Chờ không còn pod (timeout 180s)...
+==> Scale-to-zero hoàn tất. Sẵn sàng chạy cold-start benchmark.
+time="2026-07-22T20:29:37+07:00" level=warning msg="open() was used and is currently relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/', but in the future it will be aligned with how `require` and imports work and will be relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/lib/common.js'. This means that in the future open will open relative path relative to the module/file it is written in. You can future proof this by using `import.meta.resolve()` to get relative paths to the file it is written in the current k6 version."
+[32m     ✓ status is 200[0m
+
+     checks[2m.........................:[0m [36m100.00%[0m [36;2m✓ 1[0m        [36;2m✗ 0[0m  
+     cold_start_latency_ms[2m..........:[0m avg=[36m7.2s[0m   min=[36m7.2s[0m   med=[36m7.2s[0m   max=[36m7.2s[0m   p(90)=[36m7.2s[0m   p(95)=[36m7.2s[0m   p(99)=[36m7.2s[0m   count=[36m1[0m
+     data_received[2m..................:[0m [36m214 B[0m   [36;2m30 B/s[0m
+     data_sent[2m......................:[0m [36m531 kB[0m  [36;2m74 kB/s[0m
+     http_req_blocked[2m...............:[0m avg=[36m2.08ms[0m min=[36m2.08ms[0m med=[36m2.08ms[0m max=[36m2.08ms[0m p(90)=[36m2.08ms[0m p(95)=[36m2.08ms[0m p(99)=[36m2.08ms[0m count=[36m1[0m
+     http_req_connecting[2m............:[0m avg=[36m217µs[0m  min=[36m217µs[0m  med=[36m217µs[0m  max=[36m217µs[0m  p(90)=[36m217µs[0m  p(95)=[36m217µs[0m  p(99)=[36m217µs[0m  count=[36m1[0m
+     http_req_duration[2m..............:[0m avg=[36m7.2s[0m   min=[36m7.2s[0m   med=[36m7.2s[0m   max=[36m7.2s[0m   p(90)=[36m7.2s[0m   p(95)=[36m7.2s[0m   p(99)=[36m7.2s[0m   count=[36m1[0m
+       { expected_response:true }[2m...:[0m avg=[36m7.2s[0m   min=[36m7.2s[0m   med=[36m7.2s[0m   max=[36m7.2s[0m   p(90)=[36m7.2s[0m   p(95)=[36m7.2s[0m   p(99)=[36m7.2s[0m   count=[36m1[0m
+       { phase:cold_start }[2m.........:[0m avg=[36m7.2s[0m   min=[36m7.2s[0m   med=[36m7.2s[0m   max=[36m7.2s[0m   p(90)=[36m7.2s[0m   p(95)=[36m7.2s[0m   p(99)=[36m7.2s[0m   count=[36m1[0m
+     http_req_failed[2m................:[0m [36m0.00%[0m   [36;2m✓ 0[0m        [36;2m✗ 1[0m  
+     http_req_receiving[2m.............:[0m avg=[36m525µs[0m  min=[36m525µs[0m  med=[36m525µs[0m  max=[36m525µs[0m  p(90)=[36m525µs[0m  p(95)=[36m525µs[0m  p(99)=[36m525µs[0m  count=[36m1[0m
+     http_req_sending[2m...............:[0m avg=[36m419µs[0m  min=[36m419µs[0m  med=[36m419µs[0m  max=[36m419µs[0m  p(90)=[36m419µs[0m  p(95)=[36m419µs[0m  p(99)=[36m419µs[0m  count=[36m1[0m
+     http_req_tls_handshaking[2m.......:[0m avg=[36m0s[0m     min=[36m0s[0m     med=[36m0s[0m     max=[36m0s[0m     p(90)=[36m0s[0m     p(95)=[36m0s[0m     p(99)=[36m0s[0m     count=[36m1[0m
+     http_req_waiting[2m...............:[0m avg=[36m7.2s[0m   min=[36m7.2s[0m   med=[36m7.2s[0m   max=[36m7.2s[0m   p(90)=[36m7.2s[0m   p(95)=[36m7.2s[0m   p(99)=[36m7.2s[0m   count=[36m1[0m
+     http_reqs[2m......................:[0m [36m1[0m       [36;2m0.138654/s[0m
+     iteration_duration[2m.............:[0m avg=[36m7.21s[0m  min=[36m7.21s[0m  med=[36m7.21s[0m  max=[36m7.21s[0m  p(90)=[36m7.21s[0m  p(95)=[36m7.21s[0m  p(99)=[36m7.21s[0m  count=[36m1[0m
+     iterations[2m.....................:[0m [36m1[0m       [36;2m0.138654/s[0m
+     vus[2m............................:[0m [36m1[0m       [36;2mmin=1[0m      [36;2mmax=1[0m
+     vus_max[2m........................:[0m [36m1[0m       [36;2mmin=1[0m      [36;2mmax=1[0mOK: baseline results/runs/run-3: fail_rate=0.00% p99=7.21s
+  ✓ Hoàn thành lần 3/3
+======================================================================
+  SO SÁNH COLD-START: OPTIMIZED (RAM) vs BASELINE (DISK)
+======================================================================
+Metric          Optimized     Baseline      Cải thiện
+----------------------------------------------------------------------
+Avg                 7.80s        7.21s          -8.1%
+P90                 7.80s        7.21s          -8.1%
+P95                 7.80s        7.21s          -8.1%
+P99                 7.80s        7.21s          -8.1%
+Max                 7.80s        7.21s          -8.1%
+----------------------------------------------------------------------
+  P99 baseline chậm hơn optimized: -0.59s
+  Giảm P99: -8.1%
+
+Báo cáo lưu tại: /Users/huyngoquang/Documents/Tài liệu thạc sĩ/Hệ tính toán phân bố nâng cao - NT2204.CH201/yolo-serverless/results/comparison-report.txt
+========================================================================
+  THỐNG KÊ LẶP LẠI — COLD-START P99 (Optimized vs Baseline)
+========================================================================
+Số lần chạy: optimized=3, baseline=3
+
+                  Optimized       Baseline
+------------------------------------------------------------------------
+P99 mean              7.41s          7.38s
+P99 stdev             0.69s          0.18s
+P99 min               6.60s          7.21s
+P99 max               7.82s          7.57s
+CI 95%          6.62s-8.19s    7.18s-7.59s
+------------------------------------------------------------------------
+Giảm P99 trung bình (optimized vs baseline): -0.3%
+Kết luận: Cơ chế RAM tmpfs giảm cold-start P99 ~-0% (7.38s → 7.41s), độ lệch chuẩn 0.69s.
+
+Lưu tại: /Users/huyngoquang/Documents/Tài liệu thạc sĩ/Hệ tính toán phân bố nâng cao - NT2204.CH201/yolo-serverless/results/repeat-stats-report.txt
+
+>>> Burst traffic benchmark (BURST_VUS=15)...
+time="2026-07-22T20:29:50+07:00" level=warning msg="open() was used and is currently relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/', but in the future it will be aligned with how `require` and imports work and will be relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/lib/common.js'. This means that in the future open will open relative path relative to the module/file it is written in. You can future proof this by using `import.meta.resolve()` to get relative paths to the file it is written in the current k6 version."
+[32m     ✓ status is 200[0m
+
+     checks[2m.........................:[0m [36m100.00%[0m [36;2m✓ 77[0m      [36;2m✗ 0[0m   
+     data_received[2m..................:[0m [36m17 kB[0m   [36;2m166 B/s[0m
+     data_sent[2m......................:[0m [36m41 MB[0m   [36;2m408 kB/s[0m
+     http_req_blocked[2m...............:[0m avg=[36m151.44µs[0m min=[36m3µs[0m   med=[36m10µs[0m   max=[36m3.94ms[0m p(90)=[36m410.8µs[0m p(95)=[36m628.79µs[0m p(99)=[36m1.65ms[0m   count=[36m77[0m
+     http_req_connecting[2m............:[0m avg=[36m71.92µs[0m  min=[36m0s[0m    med=[36m0s[0m     max=[36m703µs[0m  p(90)=[36m314.2µs[0m p(95)=[36m367.59µs[0m p(99)=[36m649.79µs[0m count=[36m77[0m
+     http_req_duration[2m..............:[0m avg=[36m15.91s[0m   min=[36m2.93s[0m med=[36m15.58s[0m max=[36m33.39s[0m p(90)=[36m21.29s[0m  p(95)=[36m27.97s[0m   p(99)=[36m32.78s[0m   count=[36m77[0m
+       { expected_response:true }[2m...:[0m avg=[36m15.91s[0m   min=[36m2.93s[0m med=[36m15.58s[0m max=[36m33.39s[0m p(90)=[36m21.29s[0m  p(95)=[36m27.97s[0m   p(99)=[36m32.78s[0m   count=[36m77[0m
+       { phase:burst }[2m..............:[0m avg=[36m15.91s[0m   min=[36m2.93s[0m med=[36m15.58s[0m max=[36m33.39s[0m p(90)=[36m21.29s[0m  p(95)=[36m27.97s[0m   p(99)=[36m32.78s[0m   count=[36m77[0m
+     http_req_failed[2m................:[0m [36m0.00%[0m   [36;2m✓ 0[0m       [36;2m✗ 77[0m  
+     http_req_receiving[2m.............:[0m avg=[36m349.15µs[0m min=[36m49µs[0m  med=[36m147µs[0m  max=[36m3.44ms[0m p(90)=[36m590.4µs[0m p(95)=[36m970.99µs[0m p(99)=[36m3.43ms[0m   count=[36m77[0m
+     http_req_sending[2m...............:[0m avg=[36m615.25µs[0m min=[36m210µs[0m med=[36m414µs[0m  max=[36m2.95ms[0m p(90)=[36m1.15ms[0m  p(95)=[36m1.71ms[0m   p(99)=[36m2.73ms[0m   count=[36m77[0m
+     http_req_tls_handshaking[2m.......:[0m avg=[36m0s[0m       min=[36m0s[0m    med=[36m0s[0m     max=[36m0s[0m     p(90)=[36m0s[0m      p(95)=[36m0s[0m       p(99)=[36m0s[0m       count=[36m77[0m
+     http_req_waiting[2m...............:[0m avg=[36m15.91s[0m   min=[36m2.93s[0m med=[36m15.57s[0m max=[36m33.39s[0m p(90)=[36m21.29s[0m  p(95)=[36m27.97s[0m   p(99)=[36m32.78s[0m   count=[36m77[0m
+     http_reqs[2m......................:[0m [36m77[0m      [36;2m0.76769/s[0m
+     iteration_duration[2m.............:[0m avg=[36m16.42s[0m   min=[36m3.44s[0m med=[36m16.08s[0m max=[36m33.89s[0m p(90)=[36m21.79s[0m  p(95)=[36m28.48s[0m   p(99)=[36m33.29s[0m   count=[36m77[0m
+     iterations[2m.....................:[0m [36m77[0m      [36;2m0.76769/s[0m
+     vus[2m............................:[0m [36m1[0m       [36;2mmin=0[0m     [36;2mmax=15[0m
+     vus_max[2m........................:[0m [36m15[0m      [36;2mmin=15[0m    [36;2mmax=15[0m========================================================================
+  BÁO CÁO BURST TRAFFIC
+========================================================================
+Tổng request     : 77
+Tỷ lệ lỗi        : 0.00%
+Avg latency      : 15.92s
+P95 latency      : 27.98s
+P99 latency      : 32.79s
+Max latency      : 33.39s
+------------------------------------------------------------------------
+KẾT LUẬN: KHÔNG TẮC NGHẼN — hệ thống xử lý burst ổn định
+
+Tiêu chí đánh giá:
+  - Tỷ lệ lỗi HTTP < 10%
+  - P99 latency burst < 60s
+
+Lưu tại: /Users/huyngoquang/Documents/Tài liệu thạc sĩ/Hệ tính toán phân bố nâng cao - NT2204.CH201/yolo-serverless/results/burst-report.txt
+
+>>> Capture Prometheus/Grafana evidence...
+==> Port-forward Prometheus → localhost:9091
+==> Port-forward Grafana → localhost:3000
+==> Snapshot Prometheus metrics...
+==> Grafana dashboard URL lưu tại /Users/huyngoquang/Documents/Tài liệu thạc sĩ/Hệ tính toán phân bố nâng cao - NT2204.CH201/yolo-serverless/results/monitoring/grafana-url.txt
+Monitoring charts → /Users/huyngoquang/Documents/Tài liệu thạc sĩ/Hệ tính toán phân bố nâng cao - NT2204.CH201/yolo-serverless/results/charts/
+{
+  "p99_source": "prometheus",
+  "model_load_source": "prometheus",
+  "optimized_model_load_s": 0.9115934371948242,
+  "baseline_model_load_s": 0.0,
+  "optimized_p99_s": 9.93020012739915,
+  "baseline_p99_s": NaN
+}
+==> Monitoring evidence tại: /Users/huyngoquang/Documents/Tài liệu thạc sĩ/Hệ tính toán phân bố nâng cao - NT2204.CH201/yolo-serverless/results/monitoring/
+total 312
+drwxr-xr-x@ 10 huyngoquang  staff    320 Jul 12 12:01 .
+drwxr-xr-x@ 65 huyngoquang  staff   2080 Jul 22 20:31 ..
+-rw-r--r--@  1 huyngoquang  staff    201 Jul 22 20:31 avg-latency.json
+-rw-r--r--@  1 huyngoquang  staff    213 Jul 22 20:31 evidence-summary.json
+-rw-r--r--@  1 huyngoquang  staff   3772 Jul 22 20:31 grafana-dashboard.json
+-rw-r--r--@  1 huyngoquang  staff     67 Jul 22 20:31 grafana-url.txt
+-rw-r--r--@  1 huyngoquang  staff   3726 Jul 22 20:31 model-load.json
+-rw-r--r--@  1 huyngoquang  staff    200 Jul 22 20:31 p99-latency.json
+-rw-r--r--@  1 huyngoquang  staff    238 Jul 22 20:31 request-rate.json
+-rw-r--r--@  1 huyngoquang  staff  77594 Jul 22 20:31 targets.json
+
+>>> Full benchmark (cold → burst → warm)...
+==> Đang ép yolo-inference scale về 0...
+pod "yolo-inference-00007-deployment-65ccd4cc7-5xjhl" deleted from default namespace
+pod "yolo-inference-00007-deployment-65ccd4cc7-9nbf7" deleted from default namespace
+pod "yolo-inference-00007-deployment-65ccd4cc7-c5dcx" deleted from default namespace
+pod "yolo-inference-00007-deployment-65ccd4cc7-rk4t9" deleted from default namespace
+pod "yolo-inference-00007-deployment-65ccd4cc7-tlhzf" deleted from default namespace
+==> Chờ không còn pod (timeout 180s)...
+    ... còn 9 pod, đợi thêm 5s
+    ... còn 10 pod, đợi thêm 5s
+    ... còn 10 pod, đợi thêm 5s
+    ... còn 10 pod, đợi thêm 5s
+    ... còn 10 pod, đợi thêm 5s
+    ... còn 10 pod, đợi thêm 5s
+    ... còn 9 pod, đợi thêm 5s
+    ... còn 5 pod, đợi thêm 5s
+    ... còn 5 pod, đợi thêm 5s
+    ... còn 5 pod, đợi thêm 5s
+    ... còn 5 pod, đợi thêm 5s
+    ... còn 5 pod, đợi thêm 5s
+    ... còn 5 pod, đợi thêm 5s
+    ... còn 5 pod, đợi thêm 5s
+    ... còn 5 pod, đợi thêm 5s
+    ... còn 5 pod, đợi thêm 5s
+    ... còn 5 pod, đợi thêm 5s
+    ... còn 5 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+    ... còn 1 pod, đợi thêm 5s
+==> Scale-to-zero hoàn tất. Sẵn sàng chạy cold-start benchmark.
+time="2026-07-22T20:33:25+07:00" level=warning msg="open() was used and is currently relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/', but in the future it will be aligned with how `require` and imports work and will be relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/lib/common.js'. This means that in the future open will open relative path relative to the module/file it is written in. You can future proof this by using `import.meta.resolve()` to get relative paths to the file it is written in the current k6 version."
+[32m     ✓ status is 200[0m
+
+     checks[2m.........................:[0m [36m100.00%[0m [36;2m✓ 128[0m     [36;2m✗ 0[0m   
+     cold_start_latency_ms[2m..........:[0m avg=[36m9.44s[0m    min=[36m9.44s[0m med=[36m9.44s[0m  max=[36m9.44s[0m   p(90)=[36m9.44s[0m   p(95)=[36m9.44s[0m    p(99)=[36m9.44s[0m  count=[36m1[0m  
+     data_received[2m..................:[0m [36m28 kB[0m   [36;2m121 B/s[0m
+     data_sent[2m......................:[0m [36m68 MB[0m   [36;2m299 kB/s[0m
+     http_req_blocked[2m...............:[0m avg=[36m527.84µs[0m min=[36m3µs[0m   med=[36m9µs[0m    max=[36m43.22ms[0m p(90)=[36m382.8µs[0m p(95)=[36m685.2µs[0m  p(99)=[36m7.95ms[0m count=[36m128[0m
+     http_req_connecting[2m............:[0m avg=[36m126.31µs[0m min=[36m0s[0m    med=[36m0s[0m     max=[36m8.58ms[0m  p(90)=[36m260.3µs[0m p(95)=[36m445.54µs[0m p(99)=[36m1.07ms[0m count=[36m128[0m
+     http_req_duration[2m..............:[0m avg=[36m10.57s[0m   min=[36m2.2s[0m  med=[36m9.86s[0m  max=[36m33.93s[0m  p(90)=[36m19.8s[0m   p(95)=[36m25.94s[0m   p(99)=[36m33.2s[0m  count=[36m128[0m
+       { expected_response:true }[2m...:[0m avg=[36m10.57s[0m   min=[36m2.2s[0m  med=[36m9.86s[0m  max=[36m33.93s[0m  p(90)=[36m19.8s[0m   p(95)=[36m25.94s[0m   p(99)=[36m33.2s[0m  count=[36m128[0m
+       { phase:burst }[2m..............:[0m avg=[36m14.51s[0m   min=[36m2.57s[0m med=[36m14.47s[0m max=[36m33.93s[0m  p(90)=[36m22.78s[0m  p(95)=[36m28.85s[0m   p(99)=[36m33.71s[0m count=[36m83[0m 
+       { phase:cold_start }[2m.........:[0m avg=[36m9.44s[0m    min=[36m9.44s[0m med=[36m9.44s[0m  max=[36m9.44s[0m   p(90)=[36m9.44s[0m   p(95)=[36m9.44s[0m    p(99)=[36m9.44s[0m  count=[36m1[0m  
+       { phase:warm }[2m...............:[0m avg=[36m3.16s[0m    min=[36m2.2s[0m  med=[36m2.81s[0m  max=[36m6.76s[0m   p(90)=[36m3.57s[0m   p(95)=[36m6.03s[0m    p(99)=[36m6.59s[0m  count=[36m44[0m 
+     http_req_failed[2m................:[0m [36m0.00%[0m   [36;2m✓ 0[0m       [36;2m✗ 128[0m 
+     http_req_receiving[2m.............:[0m avg=[36m180.42µs[0m min=[36m44µs[0m  med=[36m123µs[0m  max=[36m1.42ms[0m  p(90)=[36m362.5µs[0m p(95)=[36m461.14µs[0m p(99)=[36m1.17ms[0m count=[36m128[0m
+     http_req_sending[2m...............:[0m avg=[36m894.61µs[0m min=[36m197µs[0m med=[36m405µs[0m  max=[36m17.17ms[0m p(90)=[36m1.58ms[0m  p(95)=[36m2.73ms[0m   p(99)=[36m7.3ms[0m  count=[36m128[0m
+     http_req_tls_handshaking[2m.......:[0m avg=[36m0s[0m       min=[36m0s[0m    med=[36m0s[0m     max=[36m0s[0m      p(90)=[36m0s[0m      p(95)=[36m0s[0m       p(99)=[36m0s[0m     count=[36m128[0m
+     http_req_waiting[2m...............:[0m avg=[36m10.57s[0m   min=[36m2.19s[0m med=[36m9.86s[0m  max=[36m33.93s[0m  p(90)=[36m19.79s[0m  p(95)=[36m25.94s[0m   p(99)=[36m33.2s[0m  count=[36m128[0m
+     http_reqs[2m......................:[0m [36m128[0m     [36;2m0.56229/s[0m
+     iteration_duration[2m.............:[0m avg=[36m11.24s[0m   min=[36m3.09s[0m med=[36m10.36s[0m max=[36m34.43s[0m  p(90)=[36m20.3s[0m   p(95)=[36m26.44s[0m   p(99)=[36m33.7s[0m  count=[36m128[0m
+     iterations[2m.....................:[0m [36m128[0m     [36;2m0.56229/s[0m
+     vus[2m............................:[0m [36m1[0m       [36;2mmin=0[0m     [36;2mmax=15[0m
+     vus_max[2m........................:[0m [36m19[0m      [36;2mmin=19[0m    [36;2mmax=19[0m
+     warm_latency_ms[2m................:[0m avg=[36m3.16s[0m    min=[36m2.2s[0m  med=[36m2.81s[0m  max=[36m6.76s[0m   p(90)=[36m3.57s[0m   p(95)=[36m6.03s[0m    p(99)=[36m6.59s[0m  count=[36m44[0m 
+
+══════════════════════════════════════════════════
+  BÁO CÁO PHÂN TÍCH COLD-START / BURST / WARM
+══════════════════════════════════════════════════
+
+── COLD_START ──
+  count : 1
+  avg   : 9.44s
+  med   : 9.44s
+  p90   : 9.44s
+  p95   : 9.44s
+  p99   : 9.44s
+  max   : 9.44s
+
+── BURST ──
+  count : 83
+  avg   : 14.51s
+  med   : 14.48s
+  p90   : 22.79s
+  p95   : 28.86s
+  p99   : 33.72s
+  max   : 33.93s
+
+── WARM ──
+  count : 44
+  avg   : 3.16s
+  med   : 2.82s
+  p90   : 3.57s
+  p95   : 6.03s
+  p99   : 6.59s
+  max   : 6.76s
+
+── COLD_START_LATENCY_MS ──
+  count : 1
+  avg   : 9.44s
+  med   : 9.44s
+  p90   : 9.44s
+  p95   : 9.44s
+  p99   : 9.44s
+  max   : 9.44s
+── WARM_LATENCY_MS ──
+  count : 44
+  avg   : 3.16s
+  med   : 2.82s
+  p90   : 3.57s
+  p95   : 6.03s
+  p99   : 6.59s
+  max   : 6.76sOK: full-suite: fail_rate=0.00% p99=6.59s
+
+========================================================================
+  Nguồn: k6-full-latest.json
+========================================================================
+Phase             Count      Avg      P90      P95      P99      Max
+------------------------------------------------------------------------
+Cold-start            1    9.44s    9.44s    9.44s    9.44s    9.44s
+Burst traffic        83   14.51s   22.79s   28.86s   33.72s   33.93s
+Warm steady          44    3.16s    3.57s    6.03s    6.59s    6.76s
+------------------------------------------------------------------------
+  P99 cold-start : 9.44s
+  P99 warm       : 6.59s
+  Giảm P99       : 30.2% (cold → warm trên cùng pod)
+------------------------------------------------------------------------
+  Tổng thể: count=128 p99=33.20s max=33.93s
+==> Port-forward Prometheus → localhost:9091
+==> Port-forward Grafana → localhost:3000
+==> Snapshot Prometheus metrics...
+==> Grafana dashboard URL lưu tại /Users/huyngoquang/Documents/Tài liệu thạc sĩ/Hệ tính toán phân bố nâng cao - NT2204.CH201/yolo-serverless/results/monitoring/grafana-url.txt
+Monitoring charts → /Users/huyngoquang/Documents/Tài liệu thạc sĩ/Hệ tính toán phân bố nâng cao - NT2204.CH201/yolo-serverless/results/charts/
+{
+  "p99_source": "prometheus",
+  "model_load_source": "prometheus",
+  "optimized_model_load_s": 0.43638062477111816,
+  "baseline_model_load_s": 0.0,
+  "optimized_p99_s": 9.813599229575885,
+  "baseline_p99_s": 7.209353
+}
+==> Monitoring evidence tại: /Users/huyngoquang/Documents/Tài liệu thạc sĩ/Hệ tính toán phân bố nâng cao - NT2204.CH201/yolo-serverless/results/monitoring/
+total 312
+drwxr-xr-x@ 10 huyngoquang  staff    320 Jul 12 12:01 .
+drwxr-xr-x@ 67 huyngoquang  staff   2144 Jul 22 20:37 ..
+-rw-r--r--@  1 huyngoquang  staff    139 Jul 22 20:37 avg-latency.json
+-rw-r--r--@  1 huyngoquang  staff    220 Jul 22 20:37 evidence-summary.json
+-rw-r--r--@  1 huyngoquang  staff   3772 Jul 22 20:37 grafana-dashboard.json
+-rw-r--r--@  1 huyngoquang  staff     67 Jul 22 20:37 grafana-url.txt
+-rw-r--r--@  1 huyngoquang  staff   3728 Jul 22 20:37 model-load.json
+-rw-r--r--@  1 huyngoquang  staff    139 Jul 22 20:37 p99-latency.json
+-rw-r--r--@  1 huyngoquang  staff    158 Jul 22 20:37 request-rate.json
+-rw-r--r--@  1 huyngoquang  staff  82340 Jul 22 20:37 targets.json
+
+>>> Export biểu đồ...
+matplotlib không có — xuất SVG thay thế
+Biểu đồ tại: /Users/huyngoquang/Documents/Tài liệu thạc sĩ/Hệ tính toán phân bố nâng cao - NT2204.CH201/yolo-serverless/results/charts/
+HTML: /Users/huyngoquang/Documents/Tài liệu thạc sĩ/Hệ tính toán phân bố nâng cao - NT2204.CH201/yolo-serverless/results/charts/report.html
+Monitoring charts → /Users/huyngoquang/Documents/Tài liệu thạc sĩ/Hệ tính toán phân bố nâng cao - NT2204.CH201/yolo-serverless/results/charts/
+{
+  "p99_source": "prometheus",
+  "model_load_source": "prometheus",
+  "optimized_model_load_s": 0.43638062477111816,
+  "baseline_model_load_s": 0.0,
+  "optimized_p99_s": 9.813599229575885,
+  "baseline_p99_s": 7.209353
+}
+
+>>> Tạo báo cáo tổng hợp...
+Đã tạo: /Users/huyngoquang/Documents/Tài liệu thạc sĩ/Hệ tính toán phân bố nâng cao - NT2204.CH201/yolo-serverless/results/FINAL-REPORT.md
+════════════════════════════════════════════════════════
+  VERIFY ACCEPTANCE — YOLO Serverless
+════════════════════════════════════════════════════════
+  ✓ Knative services (optimized + baseline)
+  ✓ Weight-sharing setup script
+  ✓ Prometheus/Grafana manifests
+  ✓ Cold-start lặp độc lập (3 runs, 3 hash khác nhau)
+Traceback (most recent call last):
+  File "<stdin>", line 6, in <module>
+AssertionError: -0.30973983172599695
+  ✗ P99 improvement thiếu/không hợp lệ
+  ✓ Burst không tắc nghẽn
+  ✓ Full 3-phase có latency thực
+  ✓ Biểu đồ cold P99
+  ✓ Biểu đồ Grafana-style side-by-side
+  ✓ Monitoring evidence (Prometheus snapshot)
+  ✓ Grafana dashboard provisioned in manifests
+  ✓ FINAL-REPORT.md
+
+Kết quả: 11 đạt, 1 chưa đạt
+Chưa khớp 100% — chạy: ./scripts/run-full-suite.sh

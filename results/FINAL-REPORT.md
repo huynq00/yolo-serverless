@@ -1,6 +1,6 @@
 # Báo cáo Benchmark — YOLO Serverless Cold-start
 
-*Ngày tạo: 2026-07-12 12:21*
+*Ngày tạo: 2026-07-22 20:37*
 
 ## 1. Tóm tắt
 
@@ -14,9 +14,9 @@ Pipeline nghiệm thu: Knative scale-to-zero → k6 cold-start (lặp độc l�
 
 | Chỉ số | Optimized (RAM) | Baseline (Disk) |
 |--------|-----------------|-----------------|
-| P99 trung bình | 17.35s | 75.00s |
-| P99 stdev | 1.68s | 12.78s |
-| Giảm P99 | **76.9%** | — |
+| P99 trung bình | 7.41s | 7.38s |
+| P99 stdev | 0.69s | 0.18s |
+| Giảm P99 | **-0.3%** | — |
 
 ```
 ========================================================================
@@ -26,14 +26,14 @@ Số lần chạy: optimized=3, baseline=3
 
                   Optimized       Baseline
 ------------------------------------------------------------------------
-P99 mean             17.35s         75.00s
-P99 stdev             1.68s         12.78s
-P99 min              15.45s         60.45s
-P99 max              18.61s         84.42s
-CI 95%        15.46s-19.25s  60.54s-89.46s
+P99 mean              7.41s          7.38s
+P99 stdev             0.69s          0.18s
+P99 min               6.60s          7.21s
+P99 max               7.82s          7.57s
+CI 95%          6.62s-8.19s    7.18s-7.59s
 ------------------------------------------------------------------------
-Giảm P99 trung bình (optimized vs baseline): 76.9%
-Kết luận: Cơ chế RAM tmpfs giảm cold-start P99 ~77% (75.00s → 17.35s), độ lệch chuẩn 1.68s.
+Giảm P99 trung bình (optimized vs baseline): -0.3%
+Kết luận: Cơ chế RAM tmpfs giảm cold-start P99 ~-0% (7.38s → 7.41s), độ lệch chuẩn 0.69s.
 ```
 
 ## 3. Burst traffic
@@ -42,12 +42,12 @@ Kết luận: Cơ chế RAM tmpfs giảm cold-start P99 ~77% (75.00s → 17.35s)
 ========================================================================
   BÁO CÁO BURST TRAFFIC
 ========================================================================
-Tổng request     : 61
+Tổng request     : 77
 Tỷ lệ lỗi        : 0.00%
-Avg latency      : 19.40s
-P95 latency      : 41.32s
-P99 latency      : 46.37s
-Max latency      : 46.40s
+Avg latency      : 15.92s
+P95 latency      : 27.98s
+P99 latency      : 32.79s
+Max latency      : 33.39s
 ------------------------------------------------------------------------
 KẾT LUẬN: KHÔNG TẮC NGHẼN — hệ thống xử lý burst ổn định
 
@@ -64,48 +64,48 @@ Tiêu chí đánh giá:
 ══════════════════════════════════════════════════
 
 ── COLD_START ──
-  count : 3
-  avg   : 19.75s
-  med   : 19.90s
-  p90   : 21.96s
-  p95   : 22.22s
-  p99   : 22.43s
-  max   : 22.48s
+  count : 1
+  avg   : 9.44s
+  med   : 9.44s
+  p90   : 9.44s
+  p95   : 9.44s
+  p99   : 9.44s
+  max   : 9.44s
 
 ── BURST ──
-  count : 69
-  avg   : 17.71s
-  med   : 18.49s
-  p90   : 23.72s
-  p95   : 26.19s
-  p99   : 32.63s
-  max   : 32.66s
+  count : 83
+  avg   : 14.51s
+  med   : 14.48s
+  p90   : 22.79s
+  p95   : 28.86s
+  p99   : 33.72s
+  max   : 33.93s
 
 ── WARM ──
-  count : 39
-  avg   : 3.64s
-  med   : 3.40s
-  p90   : 4.68s
-  p95   : 5.41s
-  p99   : 5.64s
-  max   : 5.65s
+  count : 44
+  avg   : 3.16s
+  med   : 2.82s
+  p90   : 3.57s
+  p95   : 6.03s
+  p99   : 6.59s
+  max   : 6.76s
 
 ── COLD_START_LATENCY_MS ──
-  count : 3
-  avg   : 19.75s
-  med   : 19.90s
-  p90   : 21.96s
-  p95   : 22.22s
-  p99   : 22.43s
-  max   : 22.48s
+  count : 1
+  avg   : 9.44s
+  med   : 9.44s
+  p90   : 9.44s
+  p95   : 9.44s
+  p99   : 9.44s
+  max   : 9.44s
 ── WARM_LATENCY_MS ──
-  count : 39
-  avg   : 3.64s
-  med   : 3.40s
-  p90   : 4.68s
-  p95   : 5.41s
-  p99   : 5.64s
-  max   : 5.65s
+  count : 44
+  avg   : 3.16s
+  med   : 2.82s
+  p90   : 3.57s
+  p95   : 6.03s
+  p99   : 6.59s
+  max   : 6.76s
 ```
 
 ## 5. Giám sát Prometheus / Grafana
@@ -116,10 +116,10 @@ Dashboard: `YOLO Cold-start: RAM vs Disk` (uid: `yolo-coldstart`)
 {
   "p99_source": "prometheus",
   "model_load_source": "prometheus",
-  "optimized_model_load_s": 1.3805201053619385,
+  "optimized_model_load_s": 0.43638062477111816,
   "baseline_model_load_s": 0.0,
-  "optimized_p99_s": 9.936230207413297,
-  "baseline_p99_s": 84.42193094000001
+  "optimized_p99_s": 9.813599229575885,
+  "baseline_p99_s": 7.209353
 }
 ```
 
@@ -150,8 +150,8 @@ kubectl port-forward -n monitoring svc/grafana 3000:3000
 
 ## 7. Kết luận
 
-1. Cơ chế chia sẻ trọng số qua RAM tmpfs giảm **P99 cold-start ~77%** so với đọc đĩa (đo lặp 3 lần độc lập).
-2. Burst traffic: **không tắc nghẽn** (tỷ lệ lỗi 0.0%, P99 burst 46.37s).
+1. Cơ chế chia sẻ trọng số qua RAM tmpfs giảm **P99 cold-start ~-0%** so với đọc đĩa (đo lặp 3 lần độc lập).
+2. Burst traffic: **không tắc nghẽn** (tỷ lệ lỗi 0.0%, P99 burst 32.79s).
 3. Hệ thống serverless Knative scale-to-zero hoạt động ổn định với workload AI nặng.
 4. Prometheus/Grafana cung cấp dashboard đối chiếu Optimized (RAM) vs Baseline (Disk) cạnh nhau.
 

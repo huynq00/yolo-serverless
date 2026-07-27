@@ -1,0 +1,64 @@
+
+>>> YOLO Serverless — Full Acceptance Suite
+REPEATS=3 COLD_VUS=3 BURST_VUS=15 TIMEOUT=180s
+
+>>> Lặp compare cold-start 3 lần (mỗi lần scale-to-zero riêng)...
+
+>>> [Compare] Optimized (RAM) → results/runs/run-1
+==> Đang ép yolo-inference scale về 0...
+No resources found
+==> Chờ không còn pod (timeout 180s)...
+==> Scale-to-zero hoàn tất. Sẵn sàng chạy cold-start benchmark.
+time="2026-07-22T20:17:25+07:00" level=warning msg="open() was used and is currently relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/', but in the future it will be aligned with how `require` and imports work and will be relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/lib/common.js'. This means that in the future open will open relative path relative to the module/file it is written in. You can future proof this by using `import.meta.resolve()` to get relative paths to the file it is written in the current k6 version."
+[32m     ✓ status is 200[0m
+
+     checks[2m.........................:[0m [36m100.00%[0m [36;2m✓ 3[0m        [36;2m✗ 0[0m  
+     cold_start_latency_ms[2m..........:[0m avg=[36m11.96s[0m   min=[36m11.08s[0m   med=[36m11.17s[0m   max=[36m13.63s[0m p(90)=[36m13.14s[0m  p(95)=[36m13.38s[0m  p(99)=[36m13.58s[0m   count=[36m3[0m
+     data_received[2m..................:[0m [36m648 B[0m   [36;2m45 B/s[0m
+     data_sent[2m......................:[0m [36m1.6 MB[0m  [36;2m111 kB/s[0m
+     http_req_blocked[2m...............:[0m avg=[36m660.99ms[0m min=[36m660.97ms[0m med=[36m660.99ms[0m max=[36m661ms[0m  p(90)=[36m661ms[0m   p(95)=[36m661ms[0m   p(99)=[36m661ms[0m    count=[36m3[0m
+     http_req_connecting[2m............:[0m avg=[36m650µs[0m    min=[36m628µs[0m    med=[36m659µs[0m    max=[36m663µs[0m  p(90)=[36m662.2µs[0m p(95)=[36m662.6µs[0m p(99)=[36m662.92µs[0m count=[36m3[0m
+     http_req_duration[2m..............:[0m avg=[36m11.96s[0m   min=[36m11.08s[0m   med=[36m11.17s[0m   max=[36m13.63s[0m p(90)=[36m13.14s[0m  p(95)=[36m13.38s[0m  p(99)=[36m13.58s[0m   count=[36m3[0m
+       { expected_response:true }[2m...:[0m avg=[36m11.96s[0m   min=[36m11.08s[0m   med=[36m11.17s[0m   max=[36m13.63s[0m p(90)=[36m13.14s[0m  p(95)=[36m13.38s[0m  p(99)=[36m13.58s[0m   count=[36m3[0m
+       { phase:cold_start }[2m.........:[0m avg=[36m11.96s[0m   min=[36m11.08s[0m   med=[36m11.17s[0m   max=[36m13.63s[0m p(90)=[36m13.14s[0m  p(95)=[36m13.38s[0m  p(99)=[36m13.58s[0m   count=[36m3[0m
+     http_req_failed[2m................:[0m [36m0.00%[0m   [36;2m✓ 0[0m        [36;2m✗ 3[0m  
+     http_req_receiving[2m.............:[0m avg=[36m1.15ms[0m   min=[36m114µs[0m    med=[36m168µs[0m    max=[36m3.19ms[0m p(90)=[36m2.58ms[0m  p(95)=[36m2.89ms[0m  p(99)=[36m3.13ms[0m   count=[36m3[0m
+     http_req_sending[2m...............:[0m avg=[36m1.46ms[0m   min=[36m1.37ms[0m   med=[36m1.37ms[0m   max=[36m1.65ms[0m p(90)=[36m1.59ms[0m  p(95)=[36m1.62ms[0m  p(99)=[36m1.64ms[0m   count=[36m3[0m
+     http_req_tls_handshaking[2m.......:[0m avg=[36m0s[0m       min=[36m0s[0m       med=[36m0s[0m       max=[36m0s[0m     p(90)=[36m0s[0m      p(95)=[36m0s[0m      p(99)=[36m0s[0m       count=[36m3[0m
+     http_req_waiting[2m...............:[0m avg=[36m11.96s[0m   min=[36m11.08s[0m   med=[36m11.17s[0m   max=[36m13.63s[0m p(90)=[36m13.14s[0m  p(95)=[36m13.38s[0m  p(99)=[36m13.58s[0m   count=[36m3[0m
+     http_reqs[2m......................:[0m [36m3[0m       [36;2m0.209816/s[0m
+     iteration_duration[2m.............:[0m avg=[36m12.62s[0m   min=[36m11.74s[0m   med=[36m11.84s[0m   max=[36m14.29s[0m p(90)=[36m13.8s[0m   p(95)=[36m14.05s[0m  p(99)=[36m14.24s[0m   count=[36m3[0m
+     iterations[2m.....................:[0m [36m3[0m       [36;2m0.209816/s[0m
+     vus[2m............................:[0m [36m1[0m       [36;2mmin=1[0m      [36;2mmax=3[0m
+     vus_max[2m........................:[0m [36m3[0m       [36;2mmin=3[0m      [36;2mmax=3[0mOK: optimized results/runs/run-1: fail_rate=0.00% p99=13.59s
+
+>>> [Compare] Baseline (Disk) → results/runs/run-1
+==> Đang ép yolo-inference-baseline scale về 0...
+No resources found
+==> Chờ không còn pod (timeout 180s)...
+==> Scale-to-zero hoàn tất. Sẵn sàng chạy cold-start benchmark.
+time="2026-07-22T20:17:43+07:00" level=warning msg="open() was used and is currently relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/', but in the future it will be aligned with how `require` and imports work and will be relative to 'file:///Users/huyngoquang/Documents/T%C3%A0i%20li%E1%BB%87u%20th%E1%BA%A1c%20s%C4%A9/H%E1%BB%87%20t%C3%ADnh%20to%C3%A1n%20ph%C3%A2n%20b%E1%BB%91%20n%C3%A2ng%20cao%20-%20NT2204.CH201/yolo-serverless/lib/common.js'. This means that in the future open will open relative path relative to the module/file it is written in. You can future proof this by using `import.meta.resolve()` to get relative paths to the file it is written in the current k6 version."
+time="2026-07-22T20:17:59+07:00" level=info msg="[LỖI 502] url=http://yolo-inference-baseline.default.127.0.0.1.sslip.io:8080/predict body=EOF\n" source=console
+time="2026-07-22T20:17:59+07:00" level=info msg="[LỖI 502] url=http://yolo-inference-baseline.default.127.0.0.1.sslip.io:8080/predict body=read tcp 127.0.0.1:39686->127.0.0.1:8080: read: connection reset by peer\n" source=console
+[31m     ✗ status is 200
+      ↳  33% — ✓ 1 / ✗ 2[0m
+
+     checks[2m.........................:[0m [36m33.33%[0m [36;2m✓ 1[0m        [36;2m✗ 2[0m  
+     cold_start_latency_ms[2m..........:[0m avg=[36m16.81s[0m   min=[36m16.39s[0m  med=[36m16.39s[0m  max=[36m17.66s[0m  p(90)=[36m17.41s[0m  p(95)=[36m17.54s[0m   p(99)=[36m17.64s[0m   count=[36m3[0m
+     data_received[2m..................:[0m [36m715 B[0m  [36;2m40 B/s[0m
+     data_sent[2m......................:[0m [36m1.6 MB[0m [36;2m90 kB/s[0m
+     http_req_blocked[2m...............:[0m avg=[36m10.84ms[0m  min=[36m10.63ms[0m med=[36m10.67ms[0m max=[36m11.22ms[0m p(90)=[36m11.11ms[0m p(95)=[36m11.16ms[0m  p(99)=[36m11.21ms[0m  count=[36m3[0m
+     http_req_connecting[2m............:[0m avg=[36m272.33µs[0m min=[36m263µs[0m   med=[36m269µs[0m   max=[36m285µs[0m   p(90)=[36m281.8µs[0m p(95)=[36m283.39µs[0m p(99)=[36m284.68µs[0m count=[36m3[0m
+     http_req_duration[2m..............:[0m avg=[36m16.81s[0m   min=[36m16.39s[0m  med=[36m16.39s[0m  max=[36m17.66s[0m  p(90)=[36m17.41s[0m  p(95)=[36m17.54s[0m   p(99)=[36m17.64s[0m   count=[36m3[0m
+       { expected_response:true }[2m...:[0m avg=[36m17.66s[0m   min=[36m17.66s[0m  med=[36m17.66s[0m  max=[36m17.66s[0m  p(90)=[36m17.66s[0m  p(95)=[36m17.66s[0m   p(99)=[36m17.66s[0m   count=[36m1[0m
+       { phase:cold_start }[2m.........:[0m avg=[36m16.81s[0m   min=[36m16.39s[0m  med=[36m16.39s[0m  max=[36m17.66s[0m  p(90)=[36m17.41s[0m  p(95)=[36m17.54s[0m   p(99)=[36m17.64s[0m   count=[36m3[0m
+     http_req_failed[2m................:[0m [36m66.66%[0m [36;2m✓ 2[0m        [36;2m✗ 1[0m  
+     http_req_receiving[2m.............:[0m avg=[36m1.87ms[0m   min=[36m71µs[0m    med=[36m2.38ms[0m  max=[36m3.16ms[0m  p(90)=[36m3.01ms[0m  p(95)=[36m3.09ms[0m   p(99)=[36m3.15ms[0m   count=[36m3[0m
+     http_req_sending[2m...............:[0m avg=[36m716.66µs[0m min=[36m659µs[0m   med=[36m664µs[0m   max=[36m827µs[0m   p(90)=[36m794.4µs[0m p(95)=[36m810.7µs[0m  p(99)=[36m823.73µs[0m count=[36m3[0m
+     http_req_tls_handshaking[2m.......:[0m avg=[36m0s[0m       min=[36m0s[0m      med=[36m0s[0m      max=[36m0s[0m      p(90)=[36m0s[0m      p(95)=[36m0s[0m       p(99)=[36m0s[0m       count=[36m3[0m
+     http_req_waiting[2m...............:[0m avg=[36m16.81s[0m   min=[36m16.39s[0m  med=[36m16.39s[0m  max=[36m17.66s[0m  p(90)=[36m17.41s[0m  p(95)=[36m17.54s[0m   p(99)=[36m17.64s[0m   count=[36m3[0m
+     http_reqs[2m......................:[0m [36m3[0m      [36;2m0.169669/s[0m
+     iteration_duration[2m.............:[0m avg=[36m16.83s[0m   min=[36m16.41s[0m  med=[36m16.41s[0m  max=[36m17.68s[0m  p(90)=[36m17.42s[0m  p(95)=[36m17.55s[0m   p(99)=[36m17.65s[0m   count=[36m3[0m
+     iterations[2m.....................:[0m [36m3[0m      [36;2m0.169669/s[0m
+     vus[2m............................:[0m [36m1[0m      [36;2mmin=1[0m      [36;2mmax=3[0m
+     vus_max[2m........................:[0m [36m3[0m      [36;2mmin=3[0m      [36;2mmax=3[0mERROR: baseline results/runs/run-1: fail_rate=66.67% — quá nhiều lỗi HTTP

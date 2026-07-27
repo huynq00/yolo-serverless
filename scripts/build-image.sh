@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "${ROOT}"
 
-IMAGE="${IMAGE:-dev.local/yolo-serverless-api:v4}"
+IMAGE="${IMAGE:-dev.local/yolo-serverless-api:v5}"
 
 echo "==> Build Docker image trong Minikube daemon..."
 eval "$(minikube -p minikube docker-env)"

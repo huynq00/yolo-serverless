@@ -52,15 +52,27 @@ def rounded_box(ax, xy, w, h, facecolor, edgecolor, title, lines,
         facecolor=facecolor, edgecolor=edgecolor, linewidth=2, zorder=3,
     )
     ax.add_patch(p)
-    ax.text(
-        x + w / 2, y + h - 0.35, title,
-        ha="center", va="top", fontsize=title_fs,
-        fontweight="bold", color=title_color, zorder=4,
-    )
-    for i, line in enumerate(lines):
+    if lines:
+        # Evenly distribute title + body lines inside the box with padding
+        n = 1 + len(lines)
+        pad = min(0.28, h * 0.18)
+        step = (h - 2 * pad) / max(n, 1)
         ax.text(
-            x + w / 2, y + h - 0.85 - i * 0.38, line,
-            ha="center", va="top", fontsize=line_fs, color=SLATE, zorder=4,
+            x + w / 2, y + h - pad - step * 0.5, title,
+            ha="center", va="center", fontsize=title_fs,
+            fontweight="bold", color=title_color, zorder=4,
+        )
+        for i, line in enumerate(lines):
+            ax.text(
+                x + w / 2, y + h - pad - step * (i + 1.5), line,
+                ha="center", va="center", fontsize=line_fs, color=SLATE, zorder=4,
+            )
+    else:
+        # Title-only box: center vertically for clearer spacing
+        ax.text(
+            x + w / 2, y + h / 2, title,
+            ha="center", va="center", fontsize=title_fs,
+            fontweight="bold", color=title_color, zorder=4,
         )
 
 
@@ -114,93 +126,102 @@ def fig_phases():
 
 def fig_architecture():
     """Architecture pipeline diagram (no figure caption on image)."""
-    fig, ax = plt.subplots(figsize=(12.5, 7.6))
+    fig, ax = plt.subplots(figsize=(13.5, 9.4))
     ax.set_xlim(0, 14)
-    ax.set_ylim(0, 9.2)
+    ax.set_ylim(0, 11.0)
     ax.axis("off")
 
     ax.text(
-        7, 8.95,
+        7, 10.75,
         "Minikube single-node · Knative Serving · YOLO-World · Weight-Sharing",
         ha="center", va="top", fontsize=10, color="#64748b",
     )
 
     cluster = FancyBboxPatch(
-        (0.35, 1.55), 13.3, 6.7,
+        (0.3, 1.85), 13.4, 8.35,
         boxstyle="round,pad=0.02,rounding_size=0.4",
         facecolor="#f8fafc", edgecolor="#94a3b8", linewidth=1.8,
         linestyle="--", zorder=1,
     )
     ax.add_patch(cluster)
-    ax.text(0.6, 8.0, "Cụm Kubernetes (Minikube)", fontsize=11,
+    ax.text(0.55, 9.85, "Cụm Kubernetes (Minikube)", fontsize=11,
             fontweight="bold", color="#475569", zorder=2)
 
     # Main flow boxes
-    rounded_box(ax, (0.7, 5.2), 2.2, 2.0, "#dbeafe", "#2563eb",
+    rounded_box(ax, (0.65, 5.55), 2.25, 2.15, "#dbeafe", "#2563eb",
                 "k6", ["Load Generator", "POST /predict"])
-    rounded_box(ax, (3.4, 5.2), 2.3, 2.0, "#dcfce7", "#16a34a",
+    rounded_box(ax, (3.4, 5.55), 2.35, 2.15, "#dcfce7", "#16a34a",
                 "Kourier", ["Ingress Gateway", "*.sslip.io"])
-    rounded_box(ax, (6.2, 4.9), 3.1, 2.5, "#ede9fe", "#7c3aed",
+    rounded_box(ax, (6.2, 5.2), 3.15, 2.7, "#ede9fe", "#7c3aed",
                 "Knative Serving",
                 ["Activator", "Autoscaler (KPA)", "Queue-Proxy"])
-    rounded_box(ax, (9.9, 4.9), 2.9, 2.5, "#ffedd5", "#ea580c",
+    rounded_box(ax, (9.9, 5.2), 2.95, 2.7, "#ffedd5", "#ea580c",
                 "Pod suy diễn",
                 ["FastAPI + YOLO-World", "/predict · /metrics",
                  "Queue-Proxy sidecar"])
 
-    # Monitoring
-    rounded_box(ax, (10.15, 7.45), 1.35, 0.95, "#fef9c3", "#ca8a04",
-                "Prom.", ["scrape"], title_fs=10, line_fs=8)
-    rounded_box(ax, (11.7, 7.45), 1.35, 0.95, "#fef9c3", "#ca8a04",
-                "Grafana", [""], title_fs=10, line_fs=8)
+    # Monitoring — clear gap above Pod
+    rounded_box(ax, (9.45, 8.65), 1.65, 0.85, "#fef9c3", "#ca8a04",
+                "Prometheus", [], title_fs=9.5, line_fs=8)
+    rounded_box(ax, (11.5, 8.65), 1.65, 0.85, "#fef9c3", "#ca8a04",
+                "Grafana", [], title_fs=9.5, line_fs=8)
     ax.annotate(
-        "", xy=(11.7, 7.9), xytext=(11.5, 7.9),
+        "", xy=(11.5, 9.05), xytext=(11.1, 9.05),
         arrowprops=dict(arrowstyle="->", color="#ca8a04", lw=1.5),
     )
     ax.annotate(
-        "", xy=(11.35, 7.4), xytext=(10.8, 7.45),
-        arrowprops=dict(arrowstyle="->", color="#ca8a04", lw=1.4),
+        "",
+        xy=(10.25, 8.65), xytext=(11.0, 7.9),
+        arrowprops=dict(
+            arrowstyle="->", color="#ca8a04", lw=1.4,
+            connectionstyle="arc3,rad=0.2",
+        ),
     )
+    ax.text(11.35, 8.2, "scrape", fontsize=8, color="#a16207",
+            ha="left", va="center")
 
     # Flow arrows
-    for x0, x1 in ((2.9, 3.4), (5.7, 6.2), (9.3, 9.9)):
+    for x0, x1 in ((2.9, 3.4), (5.75, 6.2), (9.35, 9.9)):
         ax.annotate(
-            "", xy=(x1, 6.2), xytext=(x0, 6.2),
+            "", xy=(x1, 6.55), xytext=(x0, 6.55),
             arrowprops=dict(arrowstyle="->", color="#334155", lw=2),
         )
 
-    # Storage layer
-    ax.add_patch(Rectangle((0.7, 1.85), 12.6, 2.55, fill=False,
+    # Storage layer — more vertical room under main flow
+    ax.add_patch(Rectangle((0.65, 2.15), 12.7, 2.55, fill=False,
                             edgecolor="#94a3b8", linewidth=1.2, linestyle=":",
                             zorder=2))
-    ax.text(0.9, 4.15, "Lớp lưu trữ dùng chung (hostPath trên node)",
+    ax.text(0.85, 4.45, "Lớp lưu trữ dùng chung (hostPath trên node)",
             fontsize=10, fontweight="bold", color="#475569")
 
-    rounded_box(ax, (2.2, 2.05), 4.0, 1.7, "#dcfce7", "#16a34a",
+    rounded_box(ax, (1.4, 2.35), 4.3, 1.75, "#dcfce7", "#16a34a",
                 "Optimized — tmpfs (RAM)",
                 ["/mnt/shared-weights", "yolov8l-world.pt"],
                 title_fs=10, line_fs=9)
-    rounded_box(ax, (7.8, 2.05), 4.0, 1.7, "#fee2e2", "#dc2626",
+    rounded_box(ax, (8.3, 2.35), 4.3, 1.75, "#fee2e2", "#dc2626",
                 "Baseline — Disk",
                 ["/mnt/disk-weights", "yolov8l-world.pt"],
                 title_fs=10, line_fs=9)
 
-    # Weights arrows from storage to pod
+    # Weights arrows — exit from top-center of each storage box
     ax.annotate(
-        "", xy=(10.5, 4.9), xytext=(4.2, 3.75),
-        arrowprops=dict(arrowstyle="->", color=GREEN, lw=2),
+        "", xy=(10.5, 5.2), xytext=(5.7, 4.1),
+        arrowprops=dict(
+            arrowstyle="->", color=GREEN, lw=2.2,
+            connectionstyle="arc3,rad=-0.12",
+        ),
     )
     ax.annotate(
-        "", xy=(11.0, 4.9), xytext=(9.8, 3.75),
-        arrowprops=dict(arrowstyle="->", color=RED, lw=2, linestyle="--"),
+        "", xy=(11.35, 5.2), xytext=(10.45, 4.1),
+        arrowprops=dict(arrowstyle="->", color=RED, lw=2.2, linestyle="--"),
     )
 
     # Legend
-    ax.text(0.7, 0.95, "→ Request HTTP", fontsize=9, color="#334155")
-    ax.text(3.8, 0.95, "→ Đọc weights RAM (Optimized)", fontsize=9, color=GREEN)
-    ax.text(8.2, 0.95, "--→ Đọc weights Disk (Baseline)", fontsize=9, color=RED)
+    ax.text(0.65, 1.15, "→ Request HTTP", fontsize=9, color="#334155")
+    ax.text(3.7, 1.15, "→ Đọc weights RAM (Optimized)", fontsize=9, color=GREEN)
+    ax.text(8.1, 1.15, "--→ Đọc weights Disk (Baseline)", fontsize=9, color=RED)
     ax.text(
-        7, 0.35,
+        7, 0.45,
         "Hai dịch vụ Knative độc lập (yolo-inference / baseline) đối chứng trên cùng node.",
         ha="center", fontsize=9, color="#64748b",
     )
@@ -209,78 +230,73 @@ def fig_architecture():
 
 def fig_weight_sharing():
     """Weight-sharing comparison diagram (no figure caption on image)."""
-    fig, ax = plt.subplots(figsize=(12, 6.6))
+    fig, ax = plt.subplots(figsize=(12.8, 8.6))
     ax.set_xlim(0, 12)
-    ax.set_ylim(0, 7.2)
+    ax.set_ylim(0, 9.2)
     ax.axis("off")
 
     ax.text(
-        6, 6.95,
+        6, 8.95,
         "Các Pod trên cùng node chia sẻ một bản sao weights qua hostPath",
         ha="center", va="top", fontsize=11, color="#64748b",
     )
 
-    # Optimized panel
-    ax.add_patch(FancyBboxPatch(
-        (0.4, 1.4), 5.3, 5.1,
-        boxstyle="round,pad=0.02,rounding_size=0.35",
-        facecolor="#f0fdf4", edgecolor=GREEN, linewidth=2.2, zorder=1,
-    ))
-    ax.text(3.05, 6.2, "Optimized (RAM tmpfs)", ha="center", fontsize=13,
-            fontweight="bold", color="#166534", zorder=2)
-    ax.add_patch(FancyBboxPatch(
-        (0.7, 1.7), 4.7, 4.1,
-        boxstyle="round,pad=0.02,rounding_size=0.3",
-        facecolor="#ffffff", edgecolor="#86efac", linewidth=1.5, zorder=2,
-    ))
-    ax.text(3.05, 5.55, "Node Minikube", ha="center", fontsize=10,
-            fontweight="bold", color="#475569")
-    rounded_box(ax, (1.15, 3.9), 3.8, 1.3, "#dcfce7", GREEN,
-                "tmpfs /mnt/shared-weights",
-                ["1× yolov8l-world.pt trên RAM (4GB)"],
-                title_fs=10, line_fs=9)
-    for i, label in enumerate(["Pod 1", "Pod 2", "Pod N"]):
-        x = 1.1 + i * 1.4
-        rounded_box(ax, (x, 2.0), 1.2, 1.15, "#ecfdf5", "#22c55e",
-                    label, ["FastAPI"], title_fs=9, line_fs=8)
-        ax.annotate(
-            "", xy=(x + 0.6, 3.9), xytext=(x + 0.6, 3.15),
-            arrowprops=dict(arrowstyle="->", color=GREEN, lw=1.6),
-        )
-    ax.text(3.05, 1.55,
-            "hostPath → đọc chung 1 bản trên RAM\n→ Giảm I/O đĩa · P99 cold ≈ 17.35s",
-            ha="center", va="top", fontsize=9, color="#166534")
+    def _panel(x0, face, edge, title, title_color, node_edge,
+               store_face, store_edge, store_title, store_line,
+               pod_face, pod_edge, note, note_color):
+        # Outer colored panel
+        ax.add_patch(FancyBboxPatch(
+            (x0, 1.35), 5.5, 7.05,
+            boxstyle="round,pad=0.02,rounding_size=0.35",
+            facecolor=face, edgecolor=edge, linewidth=2.2, zorder=1,
+        ))
+        ax.text(x0 + 2.75, 8.0, title, ha="center", va="center", fontsize=13,
+                fontweight="bold", color=title_color, zorder=2)
 
-    # Baseline panel
-    ax.add_patch(FancyBboxPatch(
-        (6.3, 1.4), 5.3, 5.1,
-        boxstyle="round,pad=0.02,rounding_size=0.35",
-        facecolor="#fef2f2", edgecolor=RED, linewidth=2.2, zorder=1,
-    ))
-    ax.text(8.95, 6.2, "Baseline (Disk)", ha="center", fontsize=13,
-            fontweight="bold", color="#991b1b", zorder=2)
-    ax.add_patch(FancyBboxPatch(
-        (6.6, 1.7), 4.7, 4.1,
-        boxstyle="round,pad=0.02,rounding_size=0.3",
-        facecolor="#ffffff", edgecolor="#fca5a5", linewidth=1.5, zorder=2,
-    ))
-    ax.text(8.95, 5.55, "Node Minikube", ha="center", fontsize=10,
-            fontweight="bold", color="#475569")
-    rounded_box(ax, (7.05, 3.9), 3.8, 1.3, "#fee2e2", RED,
-                "Disk /mnt/disk-weights",
-                ["yolov8l-world.pt trên đĩa ảo node"],
-                title_fs=10, line_fs=9)
-    for i, label in enumerate(["Pod 1", "Pod 2", "Pod N"]):
-        x = 7.0 + i * 1.4
-        rounded_box(ax, (x, 2.0), 1.2, 1.15, "#fef2f2", "#f87171",
-                    label, ["FastAPI"], title_fs=9, line_fs=8)
-        ax.annotate(
-            "", xy=(x + 0.6, 3.9), xytext=(x + 0.6, 3.15),
-            arrowprops=dict(arrowstyle="->", color=RED, lw=1.6),
+        # Inner node box — leaves clear band below for caption
+        ax.add_patch(FancyBboxPatch(
+            (x0 + 0.28, 3.15), 4.95, 4.35,
+            boxstyle="round,pad=0.02,rounding_size=0.3",
+            facecolor="#ffffff", edgecolor=node_edge, linewidth=1.5, zorder=2,
+        ))
+        ax.text(x0 + 2.75, 7.15, "Node Minikube", ha="center", va="center",
+                fontsize=10, fontweight="bold", color="#475569")
+
+        rounded_box(ax, (x0 + 0.65, 5.35), 4.2, 1.4, store_face, store_edge,
+                    store_title, [store_line], title_fs=10, line_fs=9)
+
+        for i, label in enumerate(["Pod 1", "Pod 2", "Pod N"]):
+            x = x0 + 0.55 + i * 1.5
+            rounded_box(ax, (x, 3.4), 1.3, 1.25, pod_face, pod_edge,
+                        label, ["FastAPI"], title_fs=9, line_fs=8)
+            ax.annotate(
+                "", xy=(x + 0.65, 5.35), xytext=(x + 0.65, 4.65),
+                arrowprops=dict(arrowstyle="->", color=edge, lw=1.6),
+            )
+
+        # Caption in dedicated band under Node box (no border overlap)
+        ax.text(
+            x0 + 2.75, 2.55, note,
+            ha="center", va="center", fontsize=9, color=note_color,
+            linespacing=1.55,
         )
-    ax.text(8.95, 1.55,
-            "hostPath → mỗi cold-start đọc từ đĩa\n→ Nút thắt I/O · P99 cold ≈ 75.00s",
-            ha="center", va="top", fontsize=9, color="#991b1b")
+
+    _panel(
+        0.25, "#f0fdf4", GREEN, "Optimized (RAM tmpfs)", "#166534", "#86efac",
+        "#dcfce7", GREEN, "tmpfs /mnt/shared-weights",
+        "1× yolov8l-world.pt trên RAM (4GB)",
+        "#ecfdf5", "#22c55e",
+        "hostPath → đọc chung 1 bản trên RAM\n→ Giảm I/O đĩa · P99 cold ≈ 17.35s",
+        "#166534",
+    )
+    _panel(
+        6.25, "#fef2f2", RED, "Baseline (Disk)", "#991b1b", "#fca5a5",
+        "#fee2e2", RED, "Disk /mnt/disk-weights",
+        "yolov8l-world.pt trên đĩa ảo node",
+        "#fef2f2", "#f87171",
+        "hostPath → mỗi cold-start đọc từ đĩa\n→ Nút thắt I/O · P99 cold ≈ 75.00s",
+        "#991b1b",
+    )
 
     ax.text(
         6, 0.55,
@@ -288,7 +304,6 @@ def fig_weight_sharing():
         ha="center", fontsize=10, color="#334155",
     )
     save(fig, "02-weight-sharing-tmpfs-vs-disk")
-
 
 # ---------------------------------------------------------------------------
 # Charts

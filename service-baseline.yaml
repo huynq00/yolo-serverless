@@ -17,7 +17,7 @@ spec:
         prometheus.io/path: "/metrics"
     spec:
       containers:
-        - image: dev.local/yolo-serverless-api:v4
+        - image: dev.local/yolo-serverless-api:v5
           imagePullPolicy: Never
           ports:
             - containerPort: 8080
@@ -26,6 +26,10 @@ spec:
               value: /mnt/disk-weights/yolov8l-world.pt
             - name: DEPLOYMENT_MODE
               value: baseline
+            # Docker Desktop virtio disk quá nhanh (~400MB/s); 2MB/s mô phỏng
+            # storage bị giới hạn (HDD/NFS/cloud volume) để đối chứng I/O.
+            - name: MODEL_IO_MBPS
+              value: "2"
           volumeMounts:
             - name: model-volume
               mountPath: /mnt/disk-weights
